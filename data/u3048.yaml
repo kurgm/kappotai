@@ -1,0 +1,10 @@
+name: u3048
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 0,100 360,100
+- path M 0,250 160,200
+- path M 120,360 150 300
+- path M 360,200 240,240

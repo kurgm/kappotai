@@ -1,0 +1,7 @@
+name: u3057
+width: 360.0
+height: 360.0
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 330 0 Q 225 80 160 200

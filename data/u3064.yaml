@@ -1,0 +1,7 @@
+name: u3064
+width: 360.0
+height: 360.0
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 0 210 Q 120 200 210 170

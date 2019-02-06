@@ -1,0 +1,8 @@
+name: u3066
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 0 200 Q 90 130 180 120
+- path M 360 180 180 240

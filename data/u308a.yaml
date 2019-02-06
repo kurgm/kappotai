@@ -1,0 +1,7 @@
+name: u308a
+width: 360.0
+height: 360.0
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path m 160,0 v 140 l 60,-20 v 70 c 0,28 -22,50 -50,50 H 0

@@ -1,0 +1,9 @@
+name: u3065
+width: 360.0
+height: 360.0
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 0 213 Q 117 203 203 173
+- path m 290,0 v 60 h 70
+- path m 323,0 4,60

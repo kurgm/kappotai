@@ -1,0 +1,6 @@
+name: u308e
+width: 360
+height: 360
+rect: 45 90 270 270
+data:
+- use 45 90 270 270 u308f

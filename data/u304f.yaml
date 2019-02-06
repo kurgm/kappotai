@@ -1,0 +1,7 @@
+name: u304f
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 180,180 Q 270 170 360 180

@@ -1,0 +1,6 @@
+name: u3063
+width: 360.0
+height: 360.0
+rect: 45 90 270 270
+data:
+- use 45 90 270 270 u3064

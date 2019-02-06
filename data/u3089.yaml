@@ -1,0 +1,8 @@
+name: u3089
+width: 360.0
+height: 360.0
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path m 120,0 v 120 c 80,0 166,3 240,10
+- path M 240,240 H 0

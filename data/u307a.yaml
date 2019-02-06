@@ -1,0 +1,9 @@
+name: u307a
+width: 360.0
+height: 360.0
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path m 178,180 c 0,60 -10,130 -30,180
+- path m 290,0 v 60 h 70
+- path m 320,30 10,0
