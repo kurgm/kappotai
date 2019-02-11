@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+function getmtime () {
+  python3 -c "import os.path; import sys; print(os.path.getmtime(sys.argv[1]))" "$1"
+}
+
+function exit_if_new () {
+  if ! [ -e "$1" ] || ! [ -e "$2" ]; then
+    return
+  fi
+  local time_new_limit=2
+  local result=$(echo "$(getmtime "$1") - $(getmtime "$2") < ${time_new_limit}" | bc)
+  if [ "${result}" -eq 1 ]; then
+    exit 0
+  fi
+}
+
+
+if ! [ -e "$1" ]; then
+  exit 0
+fi
+
+case $1 in
+  data/*.yaml)
+    filename=$(basename "$1")
+    mktarget=edit/${filename%.yaml}.svg
+    exit_if_new "$1" "${mktarget}"
+    make "${mktarget}"
+    ;;
+  edit/*.svg)
+    filename=$(basename "$1")
+    mktarget=data/${filename%.svg}.yaml
+    exit_if_new "$1" "${mktarget}"
+    make EDITED_SVG=yes "${mktarget}"
+    ;;
+esac

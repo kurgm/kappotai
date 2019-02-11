@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")/.."
+
+declare -a watchee=()
+
+if [ "$#" = 0 ]; then
+  watchee+=(edit data)
+fi
+
+for target; do
+  watchee+=("edit/${target}.svg" "data/${target}.yaml")
+  if ! [ -e "edit/${target}.svg" ]; then
+    scripts/edited "data/${target}.yaml"
+  fi
+done
+
+watchmedo shell-command --recursive \
+  --command "scripts/edited \"\${watch_src_path}\"" \
+  "${watchee[@]}"
