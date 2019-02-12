@@ -7,26 +7,17 @@ import yaml
 
 import config  # noqa, pylint: disable=unused-import
 from util import parse_numeric
-
-_SVG_NS = "{http://www.w3.org/2000/svg}"
-_XLINK_NS = "{http://www.w3.org/1999/xlink}"
-_INKSCAPE_NS = "{http://www.inkscape.org/namespaces/inkscape}"
-_SODIPODI_NS = "{http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}"
-
-_nsmap = {
-    "svg": _SVG_NS[1:-1],
-    "xlink": _XLINK_NS[1:-1],
-    "inkscape": _INKSCAPE_NS[1:-1],
-    "sodipodi": _SODIPODI_NS[1:-1],
-}
+from xmlns import NSMAP
+from xmlns import SVG_NS
+from xmlns import XLINK_NS
 
 
 def readsvg(svgfile):
     svg = ET.parse(svgfile).getroot()
 
-    svg.remove(svg.find("svg:defs", _nsmap))
+    svg.remove(svg.find("svg:defs", NSMAP))
 
-    bbx_rect = svg.find("svg:rect[@id='bbx_rect']", _nsmap)
+    bbx_rect = svg.find("svg:rect[@id='bbx_rect']", NSMAP)
     rectstr = "{0} {1} {2} {3}".format(
         bbx_rect.get("x"),
         bbx_rect.get("y"),
@@ -37,9 +28,9 @@ def readsvg(svgfile):
 
     glyph = []
     for elem in svg.xpath(".//svg:use|.//svg:rect|.//svg:path",
-                          namespaces=_nsmap):
-        if elem.tag == _SVG_NS + "use":
-            name = elem.get(_XLINK_NS + "href")[1:]
+                          namespaces=NSMAP):
+        if elem.tag == SVG_NS + "use":
+            name = elem.get(XLINK_NS + "href")[1:]
             glyph.append("use {0} {1} {2} {3} {4}".format(
                 elem.get("x"),
                 elem.get("y"),
@@ -47,14 +38,14 @@ def readsvg(svgfile):
                 elem.get("height"),
                 name
             ))
-        elif elem.tag == _SVG_NS + "rect":
+        elif elem.tag == SVG_NS + "rect":
             glyph.append("rect {0} {1} {2} {3}".format(
                 elem.get("x"),
                 elem.get("y"),
                 elem.get("width"),
                 elem.get("height")
             ))
-        elif elem.tag == _SVG_NS + "path":
+        elif elem.tag == SVG_NS + "path":
             glyph.append("path {0}".format(elem.get("d")))
 
     return {

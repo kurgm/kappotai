@@ -4,31 +4,65 @@ import os.path
 import sys
 import xml.etree.ElementTree as ET
 
+import svgpathtools
 import yaml
 
 import config  # noqa, pylint: disable=unused-import
 from util import parse_numeric
+from xmlns import SVG_NS
+from xmlns import XLINK_NS
 
-_SVG_NS = "{http://www.w3.org/2000/svg}"
-_XLINK_NS = "{http://www.w3.org/1999/xlink}"
-_INKSCAPE_NS = "{http://www.inkscape.org/namespaces/inkscape}"
-_SODIPODI_NS = "{http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}"
 
-_nsmap = {
-    "svg": _SVG_NS[1:-1],
-    "xlink": _XLINK_NS[1:-1],
-    "inkscape": _INKSCAPE_NS[1:-1],
-    "sodipodi": _SODIPODI_NS[1:-1],
-}
+def get_yamlpath(name):
+    return os.path.join(os.path.dirname(__file__), "..",
+                        "data", "{0}.yaml".format(name))
 
-for k, v in _nsmap.items():
-    ET.register_namespace(k, v)
 
-ET.register_namespace("", _SVG_NS[1:-1])
+def load_yaml(name):
+    with open(get_yamlpath(name)) as yamlfile:
+        return yaml.safe_load(yamlfile)
+
+
+def resized_glyph(data, width, height, dx=0.0, dy=0.0):
+    xscale = width / data["width"]
+    yscale = height / data["height"]
+    glyph = []
+    for line in data["data"]:
+        tokens = line.split()
+        assert tokens[0] in {"use", "rect", "path"}
+        if tokens[0] == "use":
+            x, y, width, height = [float(x) for x in tokens[1:5]]
+            name = tokens[5]
+            glyph.append("use {0} {1} {2} {3} {4}".format(
+                x * xscale + dx,
+                y * yscale + dy,
+                width * xscale,
+                height * yscale,
+                name
+            ))
+        elif tokens[0] == "rect":
+            x, y, width, height = [float(x) for x in tokens[1:]]
+            glyph.append("rect {0} {1} {2} {3}".format(
+                x * xscale + dx,
+                y * yscale + dy,
+                width * xscale,
+                height * yscale
+            ))
+        elif tokens[0] == "path":
+            d = " ".join(tokens[1:])
+            resized_d = (
+                svgpathtools.parse_path(d)
+                .scaled(xscale, yscale)
+                .translated(complex(dx, dy))
+            ).d()
+            glyph.append("path {0}".format(resized_d))
+    return glyph
 
 
 class SVGRenderer(object):
-    def __init__(self):
+    def __init__(self, expand=False):
+        self.expand = expand
+
         self.name = None
         self.width = None
         self.height = None
@@ -41,29 +75,21 @@ class SVGRenderer(object):
         self.width = data["width"]
         self.height = data["height"]
         self.rect = [parse_numeric(x) for x in data["rect"].split()]
-        self.glyph = self.render_data(data)
+        self.glyph = self.render_data(data["data"])
         return self.tosvg()
 
-    def render_data(self, data):
+    def render_data(self, glyphdata):
         elements = []
-        for line in data["data"]:
+        for line in glyphdata:
             tokens = line.split()
             assert tokens[0] in {"use", "rect", "path"}
             if tokens[0] == "use":
                 x, y, width, height = [parse_numeric(x) for x in tokens[1:5]]
                 name = tokens[5]
-                symbol_id = self.require(name)
-                element = ET.Element(_SVG_NS + "use", {
-                    "x": "{0}".format(x),
-                    "y": "{0}".format(y),
-                    "width": "{0}".format(width),
-                    "height": "{0}".format(height),
-                    _XLINK_NS + "href": "#{0}".format(symbol_id),
-                })
-                elements.append(element)
+                elements.extend(self.use(x, y, width, height, name))
             elif tokens[0] == "rect":
                 x, y, width, height = [parse_numeric(x) for x in tokens[1:]]
-                element = ET.Element(_SVG_NS + "rect", {
+                element = ET.Element(SVG_NS + "rect", {
                     "x": "{0}".format(x),
                     "y": "{0}".format(y),
                     "width": "{0}".format(width),
@@ -72,33 +98,46 @@ class SVGRenderer(object):
                 elements.append(element)
             elif tokens[0] == "path":
                 d = " ".join(tokens[1:])
-                element = ET.Element(_SVG_NS + "path", {
+                element = ET.Element(SVG_NS + "path", {
                     "d": d,
                 })
                 elements.append(element)
         return elements
 
+    def use(self, x, y, width, height, name):
+        if self.expand:
+            data = load_yaml(name)
+            glyphdata = resized_glyph(data, width, height, x, y)
+            return self.render_data(glyphdata)
+
+        symbol_id = self.require(name)
+        useelem = ET.Element(SVG_NS + "use", {
+            "x": "{0}".format(x),
+            "y": "{0}".format(y),
+            "width": "{0}".format(width),
+            "height": "{0}".format(height),
+            XLINK_NS + "href": "#{0}".format(symbol_id),
+        })
+        return [useelem]
+
     def require(self, name):
         symbol_id = name
         if symbol_id not in self.defs:
-            filepath = os.path.join(os.path.dirname(__file__), "..",
-                                    "data", "{0}.yaml".format(name))
-            with open(filepath) as infile:
-                data = yaml.safe_load(infile)
+            data = load_yaml(name)
             self.defs[symbol_id] = self.render_symbol(data)
         return symbol_id
 
     def render_symbol(self, data):
-        symbol = ET.Element(_SVG_NS + "symbol", {
+        symbol = ET.Element(SVG_NS + "symbol", {
             "id": data["name"],
             "viewBox": "0 0 {0} {1}".format(data["width"], data["height"]),
             "preserveAspectRatio": "none",
         })
-        symbol.extend(self.render_data(data))
+        symbol.extend(self.render_data(data["data"]))
         return symbol
 
     def tosvg(self):
-        svg = ET.Element(_SVG_NS + "svg", {
+        svg = ET.Element(SVG_NS + "svg", {
             "id": self.name,
             "width": "{0}".format(self.width),
             "height": "{0}".format(self.height),
@@ -106,12 +145,12 @@ class SVGRenderer(object):
             "preserveAspectRatio": "none",
         })
         svg.append(self.render_defs())
-        style = ET.Element(_SVG_NS + "style")
+        style = ET.Element(SVG_NS + "style")
         with open(os.path.join(os.path.dirname(__file__),
                                "edit.css")) as cssfile:
             style.text = cssfile.read()
         svg.append(style)
-        svg.append(ET.Element(_SVG_NS + "rect", {
+        svg.append(ET.Element(SVG_NS + "rect", {
             "id": "bbx_rect",
             "x": "{0}".format(self.rect[0]),
             "y": "{0}".format(self.rect[1]),
@@ -123,13 +162,13 @@ class SVGRenderer(object):
         return svg
 
     def render_defs(self):
-        defs = ET.Element(_SVG_NS + "defs")
+        defs = ET.Element(SVG_NS + "defs")
         defs.extend(self.defs.values())
         return defs
 
 
-def generate_svg(data):
-    renderer = SVGRenderer()
+def generate_svg(data, *args, **kwargs):
+    renderer = SVGRenderer(*args, **kwargs)
     elem = renderer.render(data)
     return ET.tostring(elem, encoding="unicode")
 
@@ -141,10 +180,12 @@ def main():
                         default=sys.stdin)
     parser.add_argument("--outfile", "-o", default=None)
 
+    parser.add_argument("--expand", action="store_true")
+
     args = parser.parse_args()
 
     indata = yaml.safe_load(args.infile)
-    svg = generate_svg(indata)
+    svg = generate_svg(indata, expand=args.expand)
     if args.outfile is None:
         sys.stdout.write(svg)
     else:
