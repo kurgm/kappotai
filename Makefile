@@ -24,6 +24,8 @@ else
 edit/%.svg: data/%.yaml | edit
 	$(WRITESVG) -o $@ $<
 
+edit/%.svg: $(WRITESVG) scripts/edit.css
+
 endif
 
 build:
@@ -35,7 +37,7 @@ build/expand:
 build/expand/%.svg: data/%.yaml | build/expand
 	$(WRITESVG) -o $@ --expand $<
 
-build/expand/%.svg: $(WRITESVG)
+build/expand/%.svg: $(WRITESVG) scripts/edit.css
 
 build/union:
 	mkdir -p $@
