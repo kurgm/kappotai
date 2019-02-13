@@ -8,6 +8,7 @@ import xml.etree.ElementTree as ET
 from fontTools.fontBuilder import FontBuilder
 from fontTools.misc.transform import Identity
 from fontTools.misc.transform import Transform
+from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.t2CharStringPen import T2CharStringPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.svgLib import parse_path
@@ -79,6 +80,13 @@ def collect_glyphs(srcdir, **kwargs):
     return glyphs
 
 
+def get_fontbbx(glyphs):
+    bpen = BoundsPen(None)
+    for glyph in glyphs:
+        glyph.charstring.draw(bpen)
+    return bpen.bounds
+
+
 def build_font(srcdir, metadata, filename):
     scale = 1024.0 / 360.0
     descent = 200
@@ -106,10 +114,16 @@ def build_font(srcdir, metadata, filename):
         glyph.name: glyph.get_hmetrics()
         for glyph in glyphs
     }
+    fontbbx = get_fontbbx(glyphs)
     builder.setupHorizontalMetrics(metrics)
-    builder.setupHorizontalHeader(ascent=1024 - descent, descent=descent)
+    builder.setupHorizontalHeader(ascent=1024 - descent, descent=-descent)
     builder.setupNameTable(metadata["nameStrings"])
-    builder.setupOS2()
+    builder.setupOS2(
+        sTypoAscender=1024 - descent,
+        sTypoDescender=-descent,
+        usWinAscent=fontbbx[3],
+        usWinDescent=-fontbbx[1],
+    )
     builder.setupPost()
     builder.save(filename)
 
