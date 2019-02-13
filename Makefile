@@ -1,9 +1,11 @@
 READSVG=scripts/readsvg.py
 WRITESVG=scripts/writesvg.py
 MKOTF=scripts/mkotf.py
+INKSCAPE=inkscape
+
 YAMLS:=$(wildcard data/*.yaml)
 UNIONSVGS:=$(YAMLS:data/%.yaml=build/union/%.svg)
-DISPLAY=:99
+
 TARGET=build/kappotai.otf
 
 all: $(TARGET)
@@ -37,9 +39,9 @@ build/expand/%.svg: $(WRITESVG)
 build/union:
 	mkdir -p $@
 
-build/union/%.svg: build/expand/%.svg | build/union build/temp_display
+build/union/%.svg: build/expand/%.svg | build/union
 	cp $< $@
-	DISPLAY=$(DISPLAY) inkscape --with-gui \
+	$(INKSCAPE) --with-gui \
 		--verb EditSelectAll \
 		--verb StrokeToPath \
 		--verb SelectionUnion \
@@ -49,22 +51,12 @@ build/union/%.svg: build/expand/%.svg | build/union build/temp_display
 
 .DELETE_ON_ERROR: build/union/%.svg
 
-build/temp_display: | build
-	Xvfb $(DISPLAY) & echo "kill -15 $$!" > $@
-
-.PRECIOUS: build/temp_display
-
-kill_display:
-	-bash build/temp_display && $(RM) build/temp_display
-
-.PHONY: kill_display
-
 build/kappotai.otf: $(UNIONSVGS)
 	$(MKOTF) -o $@ build/union kappotai.yaml
 
 build/kappotai.otf: $(MKOTF) kappotai.yaml
 
-clean: kill_display
+clean:
 	-$(RM) -r build edit
 
 .PHONY: all clean
