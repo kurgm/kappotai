@@ -7,3 +7,17 @@ nameStrings:
   styleName:
     en: Regular
     ja: 標準
+  uniqueFontIdentifier:
+    en: 0.001;;KappotaiWhite
+  fullName:
+    en: KappotaiWhite Regular
+    ja: 割方体白 標準
+  version:
+    en: "0.001"
+    ja: "0.001"
+  typographicFamily:
+    en: KappotaiWhite
+    ja: 割方体白
+  typographicSubfamily:
+    en: Regular
+    ja: 標準
