@@ -64,6 +64,8 @@ build/invert/%.svg: build/union/%.svg | build/invert
 		--verb FileQuit \
 		"$(abspath $@)"
 
+build/invert/%.svg: scripts/unhide_bbx.py
+
 .DELETE_ON_ERROR: build/invert/%.svg
 
 build/kappotaiw.otf: $(MKOTF) $(UNIONSVGS) kappotaiw.yaml

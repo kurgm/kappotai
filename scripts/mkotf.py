@@ -34,7 +34,7 @@ class Glyph(object):
         bounds = self.charstring.calcBounds(None)
         if bounds is None:
             return (self.advwidth, 0)
-        return (self.advwidth, bounds[1])
+        return (int(self.advwidth), int(bounds[0]))
 
 
 def unicode_from_name(name):
