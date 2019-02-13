@@ -5,8 +5,9 @@ INKSCAPE=inkscape
 
 YAMLS:=$(wildcard data/*.yaml)
 UNIONSVGS:=$(YAMLS:data/%.yaml=build/union/%.svg)
+INVERTSVGS:=$(YAMLS:data/%.yaml=build/invert/%.svg)
 
-TARGET=build/kappotai.otf
+TARGET=build/kappotaiw.otf build/kappotaib.otf
 
 all: $(TARGET)
 
@@ -51,10 +52,25 @@ build/union/%.svg: build/expand/%.svg | build/union
 
 .DELETE_ON_ERROR: build/union/%.svg
 
-build/kappotai.otf: $(UNIONSVGS)
-	$(MKOTF) -o $@ build/union kappotai.yaml
+build/invert:
+	mkdir -p $@
 
-build/kappotai.otf: $(MKOTF) kappotai.yaml
+build/invert/%.svg: build/union/%.svg | build/invert
+	scripts/unhide_bbx.py $< > $@
+	$(INKSCAPE) --with-gui \
+		--verb EditSelectAll \
+		--verb SelectionDiff \
+		--verb FileSave \
+		--verb FileQuit \
+		"$(abspath $@)"
+
+.DELETE_ON_ERROR: build/invert/%.svg
+
+build/kappotaiw.otf: $(MKOTF) $(UNIONSVGS) kappotaiw.yaml
+	$(MKOTF) -o $@ build/union kappotaiw.yaml
+
+build/kappotaib.otf: $(MKOTF) $(INVERTSVGS) kappotaib.yaml
+	$(MKOTF) -o $@ build/invert kappotaib.yaml
 
 clean:
 	-$(RM) -r build edit
