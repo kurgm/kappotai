@@ -1,5 +1,6 @@
 READSVG=scripts/readsvg.py
 WRITESVG=scripts/writesvg.py
+MKOTF=scripts/mkotf.py
 YAMLS:=$(wildcard data/*.yaml)
 UNIONSVGS:=$(YAMLS:data/%.yaml=build/union/%.svg)
 DISPLAY=:99
@@ -31,6 +32,8 @@ build/expand:
 build/expand/%.svg: data/%.yaml | build/expand
 	$(WRITESVG) -o $@ --expand $<
 
+build/expand/%.svg: $(WRITESVG)
+
 build/union:
 	mkdir -p $@
 
@@ -57,10 +60,11 @@ kill_display:
 .PHONY: kill_display
 
 build/kappotai.otf: $(UNIONSVGS)
-	echo "Not configured yet"
-	exit 1
+	$(MKOTF) -o $@ build/union kappotai.yaml
 
-clean:
+build/kappotai.otf: $(MKOTF) kappotai.yaml
+
+clean: kill_display
 	-$(RM) -r build edit
 
 .PHONY: all clean
