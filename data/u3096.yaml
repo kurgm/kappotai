@@ -1,6 +1,6 @@
 name: u3096
 width: 360
 height: 360
-rect: 45 90 270 270
+rect: 30 60 300 300
 data:
-- use 45 90 270 270 u3051
+- use 30 60 300 300 u3051
