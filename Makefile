@@ -7,6 +7,8 @@ YAMLS:=$(wildcard data/*.yaml)
 UNIONSVGS:=$(YAMLS:data/%.yaml=build/union/%.svg)
 INVERTSVGS:=$(YAMLS:data/%.yaml=build/invert/%.svg)
 
+COMMONSVGS:=$(wildcard glyph/common/*.svg)
+
 TARGET=build/kappotaiw.otf build/kappotaib.otf
 
 all: $(TARGET)
@@ -70,11 +72,11 @@ build/invert/%.svg: scripts/unhide_bbx.py
 
 .DELETE_ON_ERROR: build/invert/%.svg
 
-build/kappotaiw.otf: $(MKOTF) $(UNIONSVGS) kappotaiw.yaml
-	$(MKOTF) -o $@ build/union kappotaiw.yaml
+build/kappotaiw.otf: $(MKOTF) $(COMMONSVGS) $(UNIONSVGS) kappotaiw.yaml
+	$(MKOTF) -o $@ -m kappotaiw.yaml @glyph/common.txt build/union
 
-build/kappotaib.otf: $(MKOTF) $(INVERTSVGS) kappotaib.yaml
-	$(MKOTF) -o $@ build/invert kappotaib.yaml
+build/kappotaib.otf: $(MKOTF) $(COMMONSVGS) $(INVERTSVGS) kappotaib.yaml
+	$(MKOTF) -o $@ -m kappotaib.yaml @glyph/common.txt build/invert
 
 clean:
 	-$(RM) -r build edit

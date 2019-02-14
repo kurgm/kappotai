@@ -38,9 +38,15 @@ class Glyph(object):
         return (int(self.advwidth), int(bounds[0]))
 
 
+_unicode_name_map = {
+    ".null": 0,
+}
+
+
 def unicode_from_name(name):
-    assert re.match("^u[0-9a-f]{4,5}$", name)
-    return int(name[1:], 16)
+    if re.match("^u[0-9a-f]{4,5}$", name):
+        return int(name[1:], 16)
+    return _unicode_name_map.get(name, None)
 
 
 def glyph_from_svg(svgfile, transform=Identity):
@@ -55,28 +61,15 @@ def glyph_from_svg(svgfile, transform=Identity):
     )
 
 
-def default_glyphs():
-    return [
-        Glyph(
-            name=".notdef",
-            d="M 100 -100 H 924 V 724 H 100 Z M 110 -90 V 714 H 914 V -90 Z",
-            unicode=None,
-            advwidth=1024,
-        ),
-        Glyph(
-            name=".null",
-            d="",
-            unicode=0,
-            advwidth=0,
-        ),
-    ]
-
-
-def collect_glyphs(srcdir, **kwargs):
-    glyphs = default_glyphs()
-    files = glob.glob(os.path.join(srcdir, "*.svg"))
-    for file in files:
-        glyphs.append(glyph_from_svg(file, **kwargs))
+def collect_glyphs(srcs, **kwargs):
+    glyphs = []
+    for src in srcs:
+        if os.path.isdir(src):
+            files = glob.glob(os.path.join(src, "*.svg"))
+        else:
+            files = [src]
+        for file in files:
+            glyphs.append(glyph_from_svg(file, **kwargs))
     return glyphs
 
 
@@ -87,11 +80,11 @@ def get_fontbbx(glyphs):
     return bpen.bounds
 
 
-def build_font(srcdir, metadata, filename):
+def build_font(srcs, metadata, filename):
     scale = 1024.0 / 360.0
     descent = 200
     transform = Transform(scale, 0, 0, -scale, 0, 1024.0 - descent)
-    glyphs = collect_glyphs(srcdir, transform=transform)
+    glyphs = collect_glyphs(srcs, transform=transform)
 
     builder = FontBuilder(1024, isTTF=False)
     builder.setupGlyphOrder([glyph.name for glyph in glyphs])
@@ -130,9 +123,9 @@ def build_font(srcdir, metadata, filename):
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("src")
-    parser.add_argument("meta", type=argparse.FileType("r"))
+    parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
+    parser.add_argument("src", nargs="+")
+    parser.add_argument("--meta", "-m", type=argparse.FileType("r"))
     parser.add_argument("--outfile", "-o", required=True)
 
     args = parser.parse_args()
