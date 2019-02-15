@@ -87,6 +87,7 @@ def build_font(srcs, metadata, filename):
     glyphs = collect_glyphs(srcs, transform=transform)
 
     builder = FontBuilder(1024, isTTF=False)
+    builder.font["head"].fontRevision = metadata["fontRevision"]
     builder.setupGlyphOrder([glyph.name for glyph in glyphs])
     builder.setupCharacterMap({
         glyph.unicode: glyph.name
@@ -116,6 +117,7 @@ def build_font(srcs, metadata, filename):
         sTypoDescender=-descent,
         usWinAscent=fontbbx[3],
         usWinDescent=-fontbbx[1],
+        panose=metadata["panose"],
     )
     builder.setupPost()
     builder.save(filename)

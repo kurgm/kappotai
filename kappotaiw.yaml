@@ -21,3 +21,15 @@ nameStrings:
   typographicSubfamily:
     en: Regular
     ja: 標準
+fontRevision: 0.500
+panose:
+  bFamilyType: 4
+  bSerifStyle: 10
+  bWeight: 2
+  bProportion: 0
+  bContrast: 2
+  bStrokeVariation: 11
+  bArmStyle: 3
+  bLetterForm: 8
+  bMidline: 11
+  bXHeight: 0
