@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import glob
+import math
 import os.path
 import re
 import xml.etree.ElementTree as ET
@@ -81,12 +82,12 @@ def get_fontbbx(glyphs):
 
 
 def build_font(srcs, metadata, filename):
-    scale = 1024.0 / 360.0
-    descent = 200
-    transform = Transform(scale, 0, 0, -scale, 0, 1024.0 - descent)
+    scale = 1000.0 / 360.0
+    descent = 120
+    transform = Transform(scale, 0, 0, -scale, 0, 1000.0 - descent)
     glyphs = collect_glyphs(srcs, transform=transform)
 
-    builder = FontBuilder(1024, isTTF=False)
+    builder = FontBuilder(1000, isTTF=False)
     builder.font["head"].fontRevision = metadata["fontRevision"]
     builder.setupGlyphOrder([glyph.name for glyph in glyphs])
     builder.setupCharacterMap({
@@ -110,13 +111,13 @@ def build_font(srcs, metadata, filename):
     }
     fontbbx = get_fontbbx(glyphs)
     builder.setupHorizontalMetrics(metrics)
-    builder.setupHorizontalHeader(ascent=1024 - descent, descent=-descent)
+    builder.setupHorizontalHeader(ascent=1000 - descent, descent=-descent)
     builder.setupNameTable(metadata["nameStrings"])
     builder.setupOS2(
-        sTypoAscender=1024 - descent,
+        sTypoAscender=1000 - descent,
         sTypoDescender=-descent,
-        usWinAscent=fontbbx[3],
-        usWinDescent=-fontbbx[1],
+        usWinAscent=int(math.ceil(fontbbx[3])),
+        usWinDescent=-int(math.ceil(fontbbx[1])),
         panose=metadata["panose"],
     )
     builder.setupPost()
