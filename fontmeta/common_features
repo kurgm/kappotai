@@ -1,0 +1,9 @@
+
+languagesystem DFLT dflt;
+languagesystem kana dflt;
+
+# feature vert {
+# } vert;
+# 
+# feature vrt2 {
+# } vrt2;

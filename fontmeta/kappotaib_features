@@ -1,0 +1,28 @@
+table head {
+  FontRevision 0.500;
+} head;
+
+table name {
+  nameid 0 "Copyright 2013-2019 Kurogoma.";
+} name;
+
+table OS/2 {
+  TypoAscender 880;
+  TypoDescender -120;
+  TypoLineGap 0;
+  Panose 4 0 9 0 2 11 2 2 0 0;
+} OS/2;
+
+table hhea {
+  Ascender 880;
+  Descender -120;
+  LineGap 0;
+} hhea;
+
+table vhea {
+  VertTypoAscender 500;
+  VertTypoDescender -500;
+  VertTypoLineGap 0;
+} vhea;
+
+include(common_features);

@@ -1,7 +1,11 @@
 READSVG=scripts/readsvg.py
 WRITESVG=scripts/writesvg.py
 MKOTF=scripts/mkotf.py
+
 INKSCAPE=inkscape
+MAKEOTF=makeotf
+TX=tx
+MERGEFONTS=mergefonts
 
 YAMLS:=$(wildcard data/*.yaml)
 UNIONSVGS:=$(YAMLS:data/%.yaml=build/union/%.svg)
@@ -29,9 +33,6 @@ edit/%.svg: data/%.yaml | edit
 edit/%.svg: $(WRITESVG) scripts/edit.css
 
 endif
-
-build:
-	mkdir -p $@
 
 build/expand:
 	mkdir -p $@
@@ -72,11 +73,25 @@ build/invert/%.svg: scripts/unhide_bbx.py
 
 .DELETE_ON_ERROR: build/invert/%.svg
 
-build/kappotaiw.otf: $(MKOTF) $(COMMONSVGS) $(UNIONSVGS) kappotaiw.yaml
+build/kappotaiw build/kappotaib:
+	mkdir -p $@
+
+build/kappotaiw/namekeyed.otf: $(MKOTF) $(COMMONSVGS) $(UNIONSVGS) kappotaiw.yaml | build/kappotaiw
 	$(MKOTF) -o $@ -m kappotaiw.yaml @glyph/common.txt build/union
 
-build/kappotaib.otf: $(MKOTF) $(COMMONSVGS) $(INVERTSVGS) kappotaib.yaml
+build/kappotaib/namekeyed.otf: $(MKOTF) $(COMMONSVGS) $(INVERTSVGS) kappotaib.yaml | build/kappotaib
 	$(MKOTF) -o $@ -m kappotaib.yaml @glyph/common.txt build/invert
+
+build/%/font.cff: fontmeta/%_cidfontinfo fontmeta/kappotai.map build/%/namekeyed.otf
+	$(MERGEFONTS) -cid $(word 1,$^) $@ $(word 2,$^) $(word 3,$^)
+
+build/%/font.ps: build/%/font.cff
+	$(TX) -t1 $< $@
+
+build/%.otf: build/%/font.ps fontmeta/%_features fontmeta/%_fontMenuNameDB
+	$(MAKEOTF) -f $(word 1,$^) -ff $(word 2,$^) -mf $(word 3,$^) -o $@
+
+.DELETE_ON_ERROR: build/%/font.cff build/%/font.ps build/%.otf
 
 clean:
 	-$(RM) -r build edit

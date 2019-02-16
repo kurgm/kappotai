@@ -1,4 +1,4 @@
-fonttools
+afdko
 lxml
 pyyaml
 svgpathtools
