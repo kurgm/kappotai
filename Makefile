@@ -27,20 +27,16 @@ data/%.yaml: edit/%.svg
 
 else
 
-edit/%.svg: data/%.yaml | edit
+edit/%.svg: data/%.yaml $(WRITESVG) scripts/edit.css | edit
 	$(WRITESVG) -o $@ $<
-
-edit/%.svg: $(WRITESVG) scripts/edit.css
 
 endif
 
 build/expand:
 	mkdir -p $@
 
-build/expand/%.svg: data/%.yaml | build/expand
+build/expand/%.svg: data/%.yaml $(WRITESVG) scripts/edit.css | build/expand
 	$(WRITESVG) -o $@ --expand $<
-
-build/expand/%.svg: $(WRITESVG) scripts/edit.css
 
 build/union:
 	mkdir -p $@
@@ -60,7 +56,7 @@ build/union/%.svg: build/expand/%.svg | build/union
 build/invert:
 	mkdir -p $@
 
-build/invert/%.svg: build/union/%.svg | build/invert
+build/invert/%.svg: build/union/%.svg scripts/unhide_bbx.py | build/invert
 	scripts/unhide_bbx.py $< > $@
 	$(INKSCAPE) --with-gui \
 		--verb EditSelectAll \
@@ -68,8 +64,6 @@ build/invert/%.svg: build/union/%.svg | build/invert
 		--verb FileSave \
 		--verb FileQuit \
 		"$(abspath $@)"
-
-build/invert/%.svg: scripts/unhide_bbx.py
 
 .DELETE_ON_ERROR: build/invert/%.svg
 
@@ -88,7 +82,7 @@ build/%/font.cff: fontmeta/%_cidfontinfo fontmeta/kappotai.map build/%/namekeyed
 build/%/font.ps: build/%/font.cff
 	$(TX) -t1 $< $@
 
-build/%.otf: build/%/font.ps fontmeta/%_features fontmeta/%_fontMenuNameDB
+build/%.otf: build/%/font.ps fontmeta/%_features fontmeta/%_fontMenuNameDB fontmeta/common_features
 	$(MAKEOTF) -f $(word 1,$^) -ff $(word 2,$^) -mf $(word 3,$^) -o $@
 
 .DELETE_ON_ERROR: build/%/font.cff build/%/font.ps build/%.otf
