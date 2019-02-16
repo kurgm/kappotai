@@ -25,4 +25,5 @@ table vhea {
   VertTypoLineGap 0;
 } vhea;
 
+include(../build/kappotaib/features_vmtx);
 include(common_features);

@@ -17,11 +17,13 @@ from xmlns import NSMAP
 
 
 class Glyph(object):
-    def __init__(self, name, d, advwidth, transform=Identity):
+    def __init__(self, name, d, advwidth, advheight, transform=Identity):
         self.name = name
 
-        advwidth, _ = transform.transformPoint((advwidth, 0))
+        advwidth *= abs(transform[0])
+        advheight *= abs(transform[3])
         self.advwidth = advwidth
+        self.advheight = advheight
 
         pen = T2CharStringPen(advwidth, None)
         tpen = TransformPen(pen, transform)
@@ -34,16 +36,23 @@ class Glyph(object):
             return (self.advwidth, 0)
         return (int(self.advwidth), int(bounds[0]))
 
+    def get_vmetrics(self, ascent):
+        bounds = self.charstring.calcBounds(None)
+        if bounds is None:
+            return (self.advheight, ascent)
+        return (int(self.advheight), ascent - int(bounds[3]))
 
-def glyph_from_svg(svgfile, transform=Identity):
-    svg = ET.parse(svgfile).getroot()
-    name = svg.get("id")
-    return Glyph(
-        name=name,
-        d=svg.find("svg:path", NSMAP).get("d"),
-        advwidth=float(svg.get("width")),
-        transform=transform
-    )
+    @staticmethod
+    def from_svg(svgfile, transform=Identity):
+        svg = ET.parse(svgfile).getroot()
+        name = svg.get("id")
+        return Glyph(
+            name=name,
+            d=svg.find("svg:path", NSMAP).get("d"),
+            advwidth=float(svg.get("width")),
+            advheight=float(svg.get("height")),
+            transform=transform
+        )
 
 
 def collect_glyphs(srcs, **kwargs):
@@ -54,7 +63,7 @@ def collect_glyphs(srcs, **kwargs):
         else:
             files = [src]
         for file in files:
-            glyphs.append(glyph_from_svg(file, **kwargs))
+            glyphs.append(Glyph.from_svg(file, **kwargs))
     return glyphs
 
 
@@ -79,15 +88,20 @@ def build_font(srcs, metadata, filename):
         },
         {}
     )
-    metrics = {
+    builder.setupHorizontalMetrics({
         glyph.name: glyph.get_hmetrics()
         for glyph in glyphs
-    }
-    builder.setupHorizontalMetrics(metrics)
+    })
     builder.setupHorizontalHeader(ascent=ascent, descent=-descent)
     builder.setupNameTable({})
     builder.setupOS2()
     builder.setupPost()
+    builder.setupVerticalMetrics({
+        glyph.name: glyph.get_vmetrics(ascent=ascent)
+        for glyph in glyphs
+    })
+    builder.setupVerticalOrigins({}, ascent)
+    builder.setupVerticalHeader(ascent=ascent, descent=-descent)
     builder.save(filename)
 
 
