@@ -20,9 +20,8 @@ from xmlns import NSMAP
 
 
 class Glyph(object):
-    def __init__(self, name, d, unicode, advwidth, transform=Identity):
+    def __init__(self, name, d, advwidth, transform=Identity):
         self.name = name
-        self.unicode = unicode
 
         advwidth, _ = transform.transformPoint((advwidth, 0))
         self.advwidth = advwidth
@@ -39,24 +38,12 @@ class Glyph(object):
         return (int(self.advwidth), int(bounds[0]))
 
 
-_unicode_name_map = {
-    ".null": 0,
-}
-
-
-def unicode_from_name(name):
-    if re.match("^u[0-9a-f]{4,5}$", name):
-        return int(name[1:], 16)
-    return _unicode_name_map.get(name, None)
-
-
 def glyph_from_svg(svgfile, transform=Identity):
     svg = ET.parse(svgfile).getroot()
     name = svg.get("id")
     return Glyph(
         name=name,
         d=svg.find("svg:path", NSMAP).get("d"),
-        unicode=unicode_from_name(name),
         advwidth=float(svg.get("width")),
         transform=transform
     )
@@ -88,14 +75,9 @@ def build_font(srcs, metadata, filename):
     glyphs = collect_glyphs(srcs, transform=transform)
 
     builder = FontBuilder(1000, isTTF=False)
-    builder.font["head"].fontRevision = metadata["fontRevision"]
     builder.setupGlyphOrder([glyph.name for glyph in glyphs])
-    builder.setupCharacterMap({
-        glyph.unicode: glyph.name
-        for glyph in glyphs
-        if glyph.unicode is not None
-    })
-    psname = metadata["nameStrings"]["psName"]["en"]
+    builder.setupCharacterMap({0: ".notdef"})
+    psname = metadata["psName"]
     builder.setupCFF(
         psname,
         {"FullName": psname},
@@ -112,13 +94,12 @@ def build_font(srcs, metadata, filename):
     fontbbx = get_fontbbx(glyphs)
     builder.setupHorizontalMetrics(metrics)
     builder.setupHorizontalHeader(ascent=1000 - descent, descent=-descent)
-    builder.setupNameTable(metadata["nameStrings"])
+    builder.setupNameTable({})
     builder.setupOS2(
         sTypoAscender=1000 - descent,
         sTypoDescender=-descent,
         usWinAscent=int(math.ceil(fontbbx[3])),
-        usWinDescent=-int(math.ceil(fontbbx[1])),
-        panose=metadata["panose"],
+        usWinDescent=int(math.ceil(-fontbbx[1])),
     )
     builder.setupPost()
     builder.save(filename)
