@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 
 import glob
-import math
 import os.path
-import re
 import xml.etree.ElementTree as ET
 
 from fontTools.fontBuilder import FontBuilder
 from fontTools.misc.transform import Identity
 from fontTools.misc.transform import Transform
-from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.t2CharStringPen import T2CharStringPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.svgLib import parse_path
@@ -61,17 +58,12 @@ def collect_glyphs(srcs, **kwargs):
     return glyphs
 
 
-def get_fontbbx(glyphs):
-    bpen = BoundsPen(None)
-    for glyph in glyphs:
-        glyph.charstring.draw(bpen)
-    return bpen.bounds
-
-
 def build_font(srcs, metadata, filename):
-    scale = 1000.0 / 360.0
+    ascent = 880
     descent = 120
-    transform = Transform(scale, 0, 0, -scale, 0, 1000.0 - descent)
+    upem = ascent + descent
+    scale = upem / 360.0
+    transform = Transform(scale, 0, 0, -scale, 0, ascent)
     glyphs = collect_glyphs(srcs, transform=transform)
 
     builder = FontBuilder(1000, isTTF=False)
@@ -91,16 +83,10 @@ def build_font(srcs, metadata, filename):
         glyph.name: glyph.get_hmetrics()
         for glyph in glyphs
     }
-    fontbbx = get_fontbbx(glyphs)
     builder.setupHorizontalMetrics(metrics)
-    builder.setupHorizontalHeader(ascent=1000 - descent, descent=-descent)
+    builder.setupHorizontalHeader(ascent=ascent, descent=-descent)
     builder.setupNameTable({})
-    builder.setupOS2(
-        sTypoAscender=1000 - descent,
-        sTypoDescender=-descent,
-        usWinAscent=int(math.ceil(fontbbx[3])),
-        usWinDescent=int(math.ceil(-fontbbx[1])),
-    )
+    builder.setupOS2()
     builder.setupPost()
     builder.save(filename)
 
