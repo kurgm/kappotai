@@ -1,3 +1,2 @@
 glyph/common/_notdef.svg
-glyph/common/_null.svg
 glyph/common/u0020.svg

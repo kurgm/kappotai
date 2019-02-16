@@ -76,10 +76,10 @@ build/invert/%.svg: scripts/unhide_bbx.py
 build/kappotaiw build/kappotaib:
 	mkdir -p $@
 
-build/kappotaiw/namekeyed.otf: $(MKOTF) $(COMMONSVGS) $(UNIONSVGS) kappotaiw.yaml | build/kappotaiw
+build/kappotaiw/namekeyed.otf: $(MKOTF) $(COMMONSVGS) glyph/common.txt $(UNIONSVGS) kappotaiw.yaml | build/kappotaiw
 	$(MKOTF) -o $@ -m kappotaiw.yaml @glyph/common.txt build/union
 
-build/kappotaib/namekeyed.otf: $(MKOTF) $(COMMONSVGS) $(INVERTSVGS) kappotaib.yaml | build/kappotaib
+build/kappotaib/namekeyed.otf: $(MKOTF) $(COMMONSVGS) glyph/common.txt $(INVERTSVGS) kappotaib.yaml | build/kappotaib
 	$(MKOTF) -o $@ -m kappotaib.yaml @glyph/common.txt build/invert
 
 build/%/font.cff: fontmeta/%_cidfontinfo fontmeta/kappotai.map build/%/namekeyed.otf
