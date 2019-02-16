@@ -1,0 +1,6 @@
+name: u3047.vert
+width: 360
+height: 360
+rect: 60 30 300 300
+data:
+- use 60 30 300 300 u3048

@@ -2,8 +2,26 @@
 languagesystem DFLT dflt;
 languagesystem kana dflt;
 
-# feature vert {
-# } vert;
-# 
-# feature vrt2 {
-# } vrt2;
+lookup vert_all {
+  # Small kana
+  substitute \000842 by \007918;
+  substitute \000844 by \007919;
+  substitute \000846 by \007920;
+  substitute \000848 by \007921;
+  substitute \000850 by \007922;
+  substitute \000876 by \007923;
+  substitute \000908 by \007924;
+  substitute \000910 by \007925;
+  substitute \000912 by \007926;
+  substitute \000919 by \007927;
+  substitute \007959 by \008264;
+  substitute \007960 by \008265;
+} vert_all;
+
+feature vert {
+  lookup vert_all;
+} vert;
+
+feature vrt2 {
+  lookup vert_all;
+} vrt2;
