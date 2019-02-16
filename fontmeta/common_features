@@ -3,6 +3,7 @@ languagesystem DFLT dflt;
 languagesystem kana dflt;
 
 lookup vert_all {
+  substitute \000001 by \008720;
   # Small kana
   substitute \000842 by \007918;
   substitute \000844 by \007919;
