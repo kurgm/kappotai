@@ -94,8 +94,8 @@ else
 MAKEOTFOPT?=-r
 endif
 
-build/%.otf: build/%/font.ps fontmeta/%_features fontmeta/%_fontMenuNameDB fontmeta/common_features build/%/features_vmtx
-	$(MAKEOTF) $(MAKEOTFOPT) -f $(word 1,$^) -ff $(word 2,$^) -mf $(word 3,$^) -o $@
+build/%.otf: build/%/font.ps fontmeta/%_features fontmeta/%_fontMenuNameDB fontmeta/uvs_sequences.txt fontmeta/common_features build/%/features_vmtx
+	$(MAKEOTF) $(MAKEOTFOPT) -f $(word 1,$^) -ff $(word 2,$^) -mf $(word 3,$^) -ci $(word 4,$^) -o $@
 
 .DELETE_ON_ERROR: build/%/font.cff build/%/font.ps build/%.otf
 
