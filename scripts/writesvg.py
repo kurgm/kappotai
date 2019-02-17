@@ -13,6 +13,42 @@ from xmlns import SVG_NS
 from xmlns import XLINK_NS
 
 
+# monkey-patch svgpathtools.path.scale
+_orig_scale = svgpathtools.path.scale
+
+
+def _my_scale(curve, sx, sy=None, origin=0j):
+    try:
+        return _orig_scale(curve, sx, sy, origin)
+    except Exception as err:
+        if err.args != (
+                "\nFor `Arc` objects, only scale transforms "
+                "with sx==sy are implemented.\n",):
+            raise
+
+    assert isinstance(curve, svgpathtools.path.Arc)
+    if curve.rotation != 0.0:
+        raise Exception("\nFor `Arc` objects with rotation!=0.0, "
+                        "only scale transforms with sx==sy are implemented")
+
+    assert sy is not None
+    isy = sy * 1j
+
+    def _scale(z):
+        return sx * z.real + isy * z.imag
+
+    return svgpathtools.path.Arc(
+        start=_scale(curve.start - origin) + origin,
+        radius=_scale(curve.radius),
+        rotation=curve.rotation,
+        large_arc=curve.large_arc,
+        sweep=curve.sweep,
+        end=_scale(curve.end - origin) + origin)
+
+
+svgpathtools.path.scale = _my_scale
+
+
 def get_yamlpath(name):
     return os.path.join(os.path.dirname(__file__), "..",
                         "data", "{0}.yaml".format(name))
