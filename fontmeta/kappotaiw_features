@@ -12,6 +12,7 @@ table OS/2 {
   TypoDescender -120;
   TypoLineGap 0;
   Panose 4 10 2 0 2 11 3 8 11 0;
+  FSType 0;
 } OS/2;
 
 table hhea {
