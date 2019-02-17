@@ -1,6 +1,9 @@
 # 割方体
 正方形に切れ込みを入れた文字のフォント
 
+![画像](https://user-images.githubusercontent.com/14951262/52915657-238b2a80-331a-11e9-8ed3-f1e978fac62b.png)
+
+
 # Build 
 
 Build requires:
