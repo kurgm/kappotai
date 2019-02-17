@@ -7,11 +7,18 @@ Build requires:
 - Un\*x system
 - Inkscape
 - Python3 + pip
+- Xvfb (optional)
+
+On ubuntu you can install these prerequisites with:
+```
+sudo apt-get install inkscape python3-pip xvfb
+```
 
 Run the following commands to build `build/kappotaiw.otf` and `build/kappotaib.otf`
 ```
 pip install -r requirements.txt
-make
+Xvfb :99
+DISPLAY=:99 make
 ```
 
 # License / ライセンス
