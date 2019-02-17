@@ -88,10 +88,44 @@ build/%/font.cff: fontmeta/%_cidfontinfo fontmeta/kappotai.map build/%/namekeyed
 build/%/font.ps: build/%/font.cff
 	$(TX) -t1 $< $@
 
+ifdef DEV
+MAKEOTFOPT?=
+else
+MAKEOTFOPT?=-r
+endif
+
 build/%.otf: build/%/font.ps fontmeta/%_features fontmeta/%_fontMenuNameDB fontmeta/common_features build/%/features_vmtx
-	$(MAKEOTF) -f $(word 1,$^) -ff $(word 2,$^) -mf $(word 3,$^) -o $@
+	$(MAKEOTF) $(MAKEOTFOPT) -f $(word 1,$^) -ff $(word 2,$^) -mf $(word 3,$^) -o $@
 
 .DELETE_ON_ERROR: build/%/font.cff build/%/font.ps build/%.otf
+
+ifndef DEV
+
+RELEASENAME=kappotai0500
+
+RELEASEFILES=README.txt
+RELEASEFONTS=kappotaiw.otf kappotaib.otf
+
+RELEASEFILES:=$(RELEASEFILES:%=build/$(RELEASENAME)/%)
+RELEASEFONTS:=$(RELEASEFONTS:%=build/$(RELEASENAME)/%)
+
+build/$(RELEASENAME):
+	mkdir -p $@
+
+$(RELEASEFONTS): build/$(RELEASENAME)/%.otf: build/%.otf | build/$(RELEASENAME)
+	cp -p $< $@
+
+$(RELEASEFILES): build/$(RELEASENAME)/%: release/% | build/$(RELEASENAME)
+	cp -p $< $@
+
+build/$(RELEASENAME).zip: $(RELEASEFILES) $(RELEASEFONTS)
+	cd $(@D); \
+	$(RM) $(@F) || true; \
+	zip -r $(@F) $(RELEASENAME)
+
+release: build/$(RELEASENAME).zip
+
+endif
 
 clean:
 	-$(RM) -r build edit
