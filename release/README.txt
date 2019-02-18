@@ -31,7 +31,7 @@ https://github.com/kurgm/kappotai
 更新履歴
 --------
 
-2019-02-xx  Version 0.500
+2019-02-18  Version 0.500
 - 最初の（真面目な）リリース
 - 収録文字: 空白、ひらがな
 
