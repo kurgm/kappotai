@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from collections import defaultdict
 import sys
 
 from fontTools.ttLib import TTFont
@@ -15,15 +16,16 @@ class VMTXFeatureGenerator(object):
         vorgrecs = font["VORG"].VOriginRecords
         names = set(font.getGlyphOrder()) & cidmap.keys()
         for name in names:
-            cid = cidmap[name]
-            vadv, tsb = vmetrics[name]
+            cids = cidmap[name]
+            vadv, _tsb = vmetrics[name]
             if vadv == upem:
                 vadv = None
             if name in vorgrecs:
                 vorg = vorgrecs[name]
             else:
                 vorg = None
-            self.mtx[cid] = (vadv, vorg)
+            for cid in cids:
+                self.mtx[cid] = (vadv, vorg)
 
     def generate(self):
         lines = []
@@ -43,12 +45,12 @@ class VMTXFeatureGenerator(object):
 
 
 def parse_map(mappath):
-    cidmap = {}
+    cidmap = defaultdict(list)
     with open(mappath) as mapfile:
         next(mapfile)  # skip "mergefonts"
         for line in mapfile:
             cid, name = line.split()
-            cidmap[name] = int(cid)
+            cidmap[name].append(int(cid))
     return cidmap
 
 
