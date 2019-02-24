@@ -3,6 +3,7 @@
 
 ![画像](https://user-images.githubusercontent.com/14951262/52915657-238b2a80-331a-11e9-8ed3-f1e978fac62b.png)
 
+フォントファイルは[Releases ページ](https://github.com/kurgm/kappotai/releases)の `kappotai????.zip`（`????` はバージョン番号）というリンクからダウンロードできます。
 
 # Build 
 
