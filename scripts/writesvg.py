@@ -138,12 +138,18 @@ def interpolate_key(key0, key1, width, height):
         height0 = key0["height"]
         width1 = key1["width"]
         height1 = key1["height"]
-        c0 = width * height0 - width0 * height
-        c1 = width * height1 - width1 * height
+        # Calculate the plane ax+by+cz=0 that contains three points:
+        # (0, 0, 0), (width0, width1, width) and (height0, height1, height).
+
+        # [a, b, c] = [width0, width1, width] x [height0, height1, height]
+        a = width1 * height - width * height1
+        b = width * height0 - width0 * height
         c = width1 * height0 - width0 * height1
-        c0 /= c
-        c1 /= c
-        return lambda x0, x1: x0 * c1 - x1 * c0
+
+        # Then z=(-a/c)x+(-b/c)y
+        c0 = -a / c
+        c1 = -b / c
+        return lambda x0, x1: x0 * c0 + x1 * c1
 
     interpolate = interpolate_factory()
 
