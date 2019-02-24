@@ -9,6 +9,7 @@ import yaml
 
 import config  # noqa, pylint: disable=unused-import
 from util import parse_numeric
+from xmlns import INKSCAPE_NS
 from xmlns import SVG_NS
 from xmlns import XLINK_NS
 
@@ -244,7 +245,7 @@ def get_interpolated_data(name, width, height):
     data = load_yaml(name)
     width, height = normalize_size(width, height)
     assert width > 0 and height > 0
-    if "keys" not in data or width == height:
+    if "keys" not in data or not data["keys"] or width == height:
         return data
     return {
         "name": "{0}-{1}-{2}".format(name, width, height),
@@ -264,6 +265,7 @@ class SVGRenderer(object):
         self.rect = None
         self.defs = {}
         self.glyph = None
+        self.keys = []
 
     def render(self, data):
         self.name = data["name"]
@@ -271,7 +273,18 @@ class SVGRenderer(object):
         self.height = data["height"]
         self.rect = [parse_numeric(x) for x in data["rect"].split()]
         self.glyph = self.render_data(data["data"])
+        if not self.expand and "keys" in data:
+            self.keys = [self.render_key(key) for key in data["keys"]]
         return self.tosvg()
+
+    def render_key(self, key):
+        g_elem = ET.Element(SVG_NS + "g", {
+            "id": "key-{0}-{1}".format(key["width"], key["height"]),
+            INKSCAPE_NS + "groupmode": "layer",
+            "style": "display:none",
+        })
+        g_elem.extend(self.render_data(key["data"]))
+        return g_elem
 
     def render_data(self, glyphdata):
         elements = []
@@ -345,7 +358,11 @@ class SVGRenderer(object):
                                "edit.css")) as cssfile:
             style.text = cssfile.read()
         svg.append(style)
-        svg.append(ET.Element(SVG_NS + "rect", {
+        g_elem = ET.Element(SVG_NS + "g", {
+            "id": "glyph",
+            INKSCAPE_NS + "groupmode": "layer",
+        })
+        g_elem.append(ET.Element(SVG_NS + "rect", {
             "id": "bbx_rect",
             "x": "{0}".format(self.rect[0]),
             "y": "{0}".format(self.rect[1]),
@@ -353,7 +370,9 @@ class SVGRenderer(object):
             "height": "{0}".format(self.rect[3]),
             "display": "none",
         }))
-        svg.extend(self.glyph)
+        g_elem.extend(self.glyph)
+        svg.append(g_elem)
+        svg.extend(self.keys)
         return svg
 
     def render_defs(self):

@@ -9,7 +9,7 @@ from xmlns import NSMAP
 
 def unhide_bbx(svgfile):
     svg = ET.parse(svgfile).getroot()
-    bbx_rect = svg.find("svg:rect[@id='bbx_rect']", NSMAP)
+    bbx_rect = svg.find(".//svg:rect[@id='bbx_rect']", NSMAP)
     bbx_rect.set("display", "inline")
     return ET.tostring(svg, encoding="unicode")
 
