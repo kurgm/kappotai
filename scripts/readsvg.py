@@ -30,7 +30,7 @@ def readsvg(svgfile):
     for elem in svg.xpath(".//svg:use|.//svg:rect|.//svg:path",
                           namespaces=NSMAP):
         if elem.tag == SVG_NS + "use":
-            name = elem.get(XLINK_NS + "href")[1:]
+            name = elem.get(XLINK_NS + "href")[1:].split("-")[0]
             glyph.append("use {0} {1} {2} {3} {4}".format(
                 elem.get("x"),
                 elem.get("y"),

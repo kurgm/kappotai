@@ -95,6 +95,159 @@ def resized_glyph(data, width, height, dx=0.0, dy=0.0):
     return glyph
 
 
+class InterpolateError(ValueError):
+    pass
+
+
+def interpolate_path(path0, path1, interpolator):
+    if len(path0) != len(path1):
+        raise InterpolateError("number of segments do not match")
+
+    segments = []
+    for seg0, seg1 in zip(path0, path1):
+        if type(seg0) != type(seg1):  # pylint: disable=unidiomatic-typecheck
+            raise InterpolateError("type of segments do not match")
+
+        if svgpathtools.is_bezier_segment(seg0):
+            segments.append(svgpathtools.bpoints2bezier([
+                interpolator(bp0, bp1)
+                for bp0, bp1 in zip(seg0.bpoints(), seg1.bpoints())
+            ]))
+        elif isinstance(seg0, svgpathtools.Arc):
+            if not seg0.rotation == seg1.rotation == 0:
+                raise InterpolateError(
+                    "cannot interpolate arc segments with rotation")
+            if seg0.large_arc != seg1.large_arc or seg0.sweep != seg1.sweep:
+                raise InterpolateError("arc segments' flags do not match")
+
+            start = interpolator(seg0.start, seg1.start)
+            radius = interpolator(seg0.radius, seg1.radius)
+            end = interpolator(seg0.end, seg1.end)
+            segments.append(svgpathtools.Arc(
+                start=start, radius=radius, rotation=seg0.rotation,
+                large_arc=seg0.large_arc, sweep=seg0.sweep, end=end))
+        else:
+            raise TypeError("unsupported segment type")
+
+    return svgpathtools.Path(*segments)
+
+
+def interpolate_key(key0, key1, width, height):
+    def interpolate_factory():
+        width0 = key0["width"]
+        height0 = key0["height"]
+        width1 = key1["width"]
+        height1 = key1["height"]
+        c0 = width * height0 - width0 * height
+        c1 = width * height1 - width1 * height
+        c = width1 * height0 - width0 * height1
+        c0 /= c
+        c1 /= c
+        return lambda x0, x1: x0 * c1 - x1 * c0
+
+    interpolate = interpolate_factory()
+
+    if len(key0["data"]) != len(key1["data"]):
+        raise InterpolateError("numbers of lines do not match")
+
+    glyph = []
+    for line0, line1 in zip(key0["data"], key1["data"]):
+        tokens0 = line0.split()
+        tokens1 = line1.split()
+        if tokens0[0] != tokens1[0]:
+            raise InterpolateError("linetypes do not match")
+        linetype = tokens0[0]
+
+        assert linetype in {"use", "rect", "path"}
+        if linetype == "use":
+            if tokens0[5] != tokens1[5]:
+                raise InterpolateError("use names do not match")
+            name = tokens0[5]
+
+            x0, y0, width0, height0 = [float(x) for x in tokens0[1:5]]
+            x1, y1, width1, height1 = [float(x) for x in tokens1[1:5]]
+            glyph.append("use {0} {1} {2} {3} {4}".format(
+                interpolate(x0, x1),
+                interpolate(y0, y1),
+                interpolate(width0, width1),
+                interpolate(height0, height1),
+                name
+            ))
+        elif linetype == "rect":
+            x0, y0, width0, height0 = [float(x) for x in tokens0[1:]]
+            x1, y1, width1, height1 = [float(x) for x in tokens1[1:]]
+            glyph.append("rect {0} {1} {2} {3}".format(
+                interpolate(x0, x1),
+                interpolate(y0, y1),
+                interpolate(width0, width1),
+                interpolate(height0, height1)
+            ))
+        elif linetype == "path":
+            d0 = " ".join(tokens0[1:])
+            d1 = " ".join(tokens1[1:])
+            interpolated_d = interpolate_path(
+                svgpathtools.parse_path(d0),
+                svgpathtools.parse_path(d1),
+                interpolate
+            ).d()
+            glyph.append("path {0}".format(interpolated_d))
+    return glyph
+
+
+def div_inf(x, y):
+    try:
+        return x / y
+    except ValueError:
+        if x <= 0:
+            raise
+        return float("inf")
+
+
+def interpolate_keys(keys, width, height):
+    if len(keys) == 1:
+        return keys[0]["data"]
+    assert len(keys) >= 2
+
+    t = div_inf(width, height)
+
+    key0, key1 = None, None
+    for key0, key1 in zip(keys[:-1], keys[1:]):
+        t0 = div_inf(key0["width"], key0["height"])
+        t1 = div_inf(key1["width"], key1["height"])
+        if t0 <= t <= t1:
+            break
+    else:
+        raise InterpolateError("cannot extrapolate keys")
+
+    if t0 == t:
+        return key0["data"]
+    if t1 == t:
+        return key1["data"]
+    assert t0 != t1
+
+    return interpolate_key(key0, key1, width, height)
+
+
+def normalize_size(width, height):
+    assert width > 0 and height > 0
+    scale = 360.0 / max(width, height)
+    return int(round(scale * width)), int(round(scale * height))
+
+
+def get_interpolated_data(name, width, height):
+    data = load_yaml(name)
+    width, height = normalize_size(width, height)
+    assert width > 0 and height > 0
+    if "keys" not in data or width == height:
+        return data
+    return {
+        "name": "{0}-{1}-{2}".format(name, width, height),
+        "width": width,
+        "height": height,
+        "data": interpolate_keys(data["keys"], width, height),
+    }
+
+
 class SVGRenderer(object):
     def __init__(self, expand=False):
         self.expand = expand
@@ -142,11 +295,11 @@ class SVGRenderer(object):
 
     def use(self, x, y, width, height, name):
         if self.expand:
-            data = load_yaml(name)
+            data = get_interpolated_data(name, width, height)
             glyphdata = resized_glyph(data, width, height, x, y)
             return self.render_data(glyphdata)
 
-        symbol_id = self.require(name)
+        symbol_id = self.require(name, width, height)
         useelem = ET.Element(SVG_NS + "use", {
             "x": "{0}".format(x),
             "y": "{0}".format(y),
@@ -156,10 +309,10 @@ class SVGRenderer(object):
         })
         return [useelem]
 
-    def require(self, name):
-        symbol_id = name
+    def require(self, name, width=360, height=360):
+        data = get_interpolated_data(name, width, height)
+        symbol_id = data["name"]
         if symbol_id not in self.defs:
-            data = load_yaml(name)
             self.defs[symbol_id] = self.render_symbol(data)
         return symbol_id
 
