@@ -236,7 +236,7 @@ def interpolate_keys(keys, width, height):
 
 
 def normalize_size(width, height):
-    assert width > 0 and height > 0
+    assert width >= 0 and height >= 0
     scale = 360.0 / max(width, height)
     return int(round(scale * width)), int(round(scale * height))
 
@@ -244,7 +244,6 @@ def normalize_size(width, height):
 def get_interpolated_data(name, width, height):
     data = load_yaml(name)
     width, height = normalize_size(width, height)
-    assert width > 0 and height > 0
     if "keys" not in data or not data["keys"]:
         return data
     return {
