@@ -48,7 +48,7 @@ class Glyph(object):
         name = svg.get("id")
         return Glyph(
             name=name,
-            d=svg.find("svg:path", NSMAP).get("d"),
+            d=svg.find(".//svg:path", NSMAP).get("d"),
             advwidth=float(svg.get("width")),
             advheight=float(svg.get("height")),
             transform=transform
