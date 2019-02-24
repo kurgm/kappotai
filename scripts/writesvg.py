@@ -145,7 +145,7 @@ def interpolate_key(key0, key1, width, height):
         # [a, b, c] = [width0, width1, width] x [height0, height1, height]
         a = width1 * height - width * height1
         b = width * height0 - width0 * height
-        c = width1 * height0 - width0 * height1
+        c = width0 * height1 - width1 * height0
 
         # Then z=(-a/c)x+(-b/c)y
         c0 = -a / c
@@ -204,7 +204,7 @@ def interpolate_key(key0, key1, width, height):
 def div_inf(x, y):
     try:
         return x / y
-    except ValueError:
+    except ZeroDivisionError:
         if x <= 0:
             raise
         return float("inf")
@@ -245,7 +245,7 @@ def get_interpolated_data(name, width, height):
     data = load_yaml(name)
     width, height = normalize_size(width, height)
     assert width > 0 and height > 0
-    if "keys" not in data or not data["keys"] or width == height:
+    if "keys" not in data or not data["keys"]:
         return data
     return {
         "name": "{0}-{1}-{2}".format(name, width, height),
@@ -274,17 +274,21 @@ class SVGRenderer(object):
         self.rect = [parse_numeric(x) for x in data["rect"].split()]
         self.glyph = self.render_data(data["data"])
         if not self.expand and "keys" in data:
-            self.keys = [self.render_key(key) for key in data["keys"]]
+            self.keys = self.render_keys(data["keys"])
         return self.tosvg()
 
-    def render_key(self, key):
-        g_elem = ET.Element(SVG_NS + "g", {
-            "id": "key-{0}-{1}".format(key["width"], key["height"]),
-            INKSCAPE_NS + "groupmode": "layer",
-            "style": "display:none",
-        })
-        g_elem.extend(self.render_data(key["data"]))
-        return g_elem
+    def render_keys(self, keys):
+        elems = []
+        for keynum, key in enumerate(keys):
+            g_elem = ET.Element(SVG_NS + "g", {
+                "id": "key-{0}-{1}-{2}".format(
+                    keynum, key["width"], key["height"]),
+                INKSCAPE_NS + "groupmode": "layer",
+                "style": "display:none",
+            })
+            g_elem.extend(self.render_data(key["data"]))
+            elems.append(g_elem)
+        return elems
 
     def render_data(self, glyphdata):
         elements = []
@@ -358,6 +362,7 @@ class SVGRenderer(object):
                                "edit.css")) as cssfile:
             style.text = cssfile.read()
         svg.append(style)
+        svg.extend(self.keys)
         g_elem = ET.Element(SVG_NS + "g", {
             "id": "glyph",
             INKSCAPE_NS + "groupmode": "layer",
@@ -372,7 +377,6 @@ class SVGRenderer(object):
         }))
         g_elem.extend(self.glyph)
         svg.append(g_elem)
-        svg.extend(self.keys)
         return svg
 
     def render_defs(self):

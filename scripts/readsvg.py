@@ -53,7 +53,7 @@ def readsvg(svgfile):
     keys = []
     for elem in svg.xpath("./svg:g[starts-with(@id, 'key-')]",
                           namespaces=NSMAP):
-        keyw, keyh = elem.get("id")[len("key-"):].split("-")
+        _num, keyw, keyh = elem.get("id")[len("key-"):].split("-")
         keys.append({
             "width": parse_numeric(keyw),
             "height": parse_numeric(keyh),
