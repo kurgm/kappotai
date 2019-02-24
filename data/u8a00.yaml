@@ -1,0 +1,34 @@
+name: u8a00
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u8a00
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 H 0
+  - path M 0 0 H 0
+  - path M 0 0 H 0
+  - path M 0 0 H 0
+  - use 0 0 0 360 u53e3
+- width: 118
+  height: 360
+  data:
+  - rect 0 0 118 360
+  - path M 0 59 H 118
+  - path M 0 124 H 118
+  - path M 0 183 H 118
+  - path M 0 242 H 118
+  - use 0 242 118 118 u53e3
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 360
+  - path M 0 0 H 360
+  - path M 0 0 H 360
+  - path M 0 0 H 360
+  - use 0 0 360 0 u53e3

@@ -1,0 +1,27 @@
+name: u53e3
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u53e3
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 0 360
+- width: 360
+  height: 360
+  data:
+  - rect 0 0 360 360
+  - path M 180 175 180 185
+- width: 360
+  height: 360
+  data:
+  - rect 0 0 360 360
+  - path M 175 180 185 180
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 360 0
