@@ -6,3 +6,7 @@ rect, path {
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
 }
+#bbx_rect {
+  fill: #000000;
+  stroke: none;
+}

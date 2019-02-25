@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [ "$#" = 0 ]; then
+  commit=HEAD
+else
+  commit=$@
+fi
+
+declare -a target=($(git diff-tree --no-commit-id --name-only -r $commit -- data))
+if [ "${#target[@]}" = 0 ]; then
+  echo "No target file." >&2
+  exit 1
+fi
+
+DISPLAY=:99
+Xvfb "$DISPLAY" &
+trap "kill \"$!\" || true" EXIT
+export DISPLAY
+
+for fil in "${target[@]}"; do
+  name=$(basename "${fil%.yaml}")
+  make "build/union/${name}.svg" "build/invert/${name}.svg"
+done
+
+columnxrow=$(python3 -c "cells = ${#target[@]}; import math; column = int(math.ceil(cells ** 0.5)); print('{0}x{1}'.format(int(column), int(math.ceil(cells / column))))")
+column=${columnxrow%x*}
+row=${columnxrow#*x}
+
+side=360
+width=$((column * side))
+height=$((row * side))
+mkdir -p build/summary
+cat << EOS > build/summary/summaryw.svg
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+EOS
+
+i=0
+for y in $(seq ${row}); do
+  for x in $(seq ${column}); do
+    if [ "$i" -ge "${#target[@]}" ]; then
+      continue
+    fi
+    name=$(basename "${target[i]%.yaml}")
+    cat << EOS >> build/summary/summaryw.svg
+<use x="$(((x - 1) * side))" y="$(((y - 1) * side))" xlink:href="../union/${name}.svg#${name}" />
+EOS
+    i=$((i + 1))
+  done
+done
+
+cat << EOS >> build/summary/summaryw.svg
+</svg>
+EOS
+
+cat build/summary/summaryw.svg | sed "s/union/invert/" > build/summary/summaryb.svg
+
+cat << EOS | inkscape --shell
+-z -a -5:-5:$((width+5)):$((height+5)) -b white -e $(pwd)/build/summary/summaryw.png $(pwd)/build/summary/summaryw.svg
+-z -a -5:-5:$((width+5)):$((height+5)) -b white -e $(pwd)/build/summary/summaryb.png $(pwd)/build/summary/summaryb.svg
+EOS
+
+echo "Generated build/summary/summaryw.png and build/summary/summaryb.png"
