@@ -1,0 +1,23 @@
+name: u738b
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u738b
+keys:
+- width: 130
+  height: 360
+  data:
+  - rect 0 0 130 360
+  - path M 0 122 H 5
+  - path M 125 122 H 130
+  - path M 0 238 H 5
+  - path M 125 238 H 130
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 180
+  - path M 180 0 H 360
+  - path M 0 0 H 180
+  - path M 180 0 H 360

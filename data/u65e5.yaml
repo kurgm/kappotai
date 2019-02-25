@@ -1,0 +1,31 @@
+name: u65e5
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u65e5
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 0 180
+  - path M 0 180 0 360
+- width: 240
+  height: 360
+  data:
+  - rect 0 0 240 360
+  - path M 120 115 120 125
+  - path M 120 235 120 245
+- width: 240
+  height: 360
+  data:
+  - rect 0 0 240 360
+  - path M 115 120 125 120
+  - path M 115 240 125 240
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 360 0
+  - path M 0 0 360 0

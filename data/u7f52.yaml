@@ -1,0 +1,35 @@
+name: u7f52
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u7f52
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 0 360
+  - path M 0 0 0 360
+  - path M 0 0 0 360
+- width: 360
+  height: 180
+  data:
+  - rect 0 0 360 180
+  - path M 90 85 90 95
+  - path M 180 85 180 95
+  - path M 270 85 270 95
+- width: 360
+  height: 180
+  data:
+  - rect 0 0 360 180
+  - path M 85 90 95 90
+  - path M 175 90 185 90
+  - path M 265 90 275 90
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 120 0
+  - path M 120 0 240 0
+  - path M 240 0 360 0

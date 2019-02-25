@@ -1,0 +1,39 @@
+name: u7530
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u7530
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 0 180
+  - path M 0 0 0 180
+  - path M 0 180 0 360
+  - path M 0 180 0 360
+- width: 360
+  height: 360
+  data:
+  - rect 0 0 360 360
+  - path M 120 115 120 125
+  - path M 240 115 240 125
+  - path M 120 235 120 245
+  - path M 240 235 240 245
+- width: 360
+  height: 360
+  data:
+  - rect 0 0 360 360
+  - path M 115 120 125 120
+  - path M 235 120 245 120
+  - path M 115 240 125 240
+  - path M 235 240 245 240
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 180 0
+  - path M 180 0 360 0
+  - path M 0 0 180 0
+  - path M 180 0 360 0

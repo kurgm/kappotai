@@ -1,0 +1,17 @@
+name: u66f0
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u66f0
+keys:
+- width: 240
+  height: 360
+  data:
+  - rect 0 0 240 360
+  - path M 115 120 125 120 125 240 115 240
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 360 0 360 0 0 0
