@@ -48,7 +48,7 @@ def readsvg(svgfile):
         bbx_rect.get("width"),
         bbx_rect.get("height")
     )
-    svg.remove(bbx_rect)
+    bbx_rect.getparent().remove(bbx_rect)
 
     keys = []
     for elem in svg.xpath("./svg:g[starts-with(@id, 'key-')]",
