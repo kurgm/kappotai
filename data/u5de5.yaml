@@ -1,0 +1,25 @@
+name: u5de5
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u5de5
+keys:
+- width: 120
+  height: 360
+  data:
+  - rect 0 0 120 360
+  - path M 0 175 H 9
+  - path M 111 175 H 120
+- width: 240
+  height: 360
+  data:
+  - rect 0 0 240 360
+  - path M 0 175 H 30
+  - path M 210 175 H 240
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 180
+  - path M 180 0 H 360

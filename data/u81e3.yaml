@@ -1,0 +1,43 @@
+name: u81e3
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u81e3
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 V 0
+  - path M 0 0 H 0
+  - path M 0 0 V 360
+  - path M 0 360 V 0
+  - path M 0 360 H 0
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 85 85 V 95
+  - path M 175 90 H 180
+  - path M 90 175 V 185
+  - path M 85 265 V 275
+  - path M 175 270 H 180
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 85 90 H 90
+  - path M 175 90 H 180
+  - path M 85 180 H 95
+  - path M 85 270 H 90
+  - path M 175 270 H 180
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 180
+  - path M 180 0 H 360
+  - path M 0 0 H 360
+  - path M 0 0 H 180
+  - path M 180 0 H 360

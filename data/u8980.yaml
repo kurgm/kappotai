@@ -1,0 +1,47 @@
+name: u8980
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u8980
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 H 0
+  - path M 0 0 V 0
+  - path M 0 0 H 0
+  - path M 0 0 V 360
+  - path M 0 0 V 360
+  - path M 0 0 V 360
+- width: 360
+  height: 270
+  data:
+  - rect 0 0 360 270
+  - path M 0 90 H 90
+  - path M 180 85 V 95
+  - path M 270 90 H 360
+  - path M 90 175 V 185
+  - path M 180 175 V 185
+  - path M 270 175 V 185
+- width: 360
+  height: 270
+  data:
+  - rect 0 0 360 270
+  - path M 0 90 H 90
+  - path M 175 90 H 185
+  - path M 270 90 H 360
+  - path M 85 180 H 95
+  - path M 175 180 H 185
+  - path M 265 180 H 275
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 120
+  - path M 120 0 H 240
+  - path M 240 0 H 360
+  - path M 0 0 H 120
+  - path M 120 0 H 240
+  - path M 240 0 H 360

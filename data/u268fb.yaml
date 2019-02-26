@@ -1,0 +1,43 @@
+name: u268fb
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u268fb
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 H 0
+  - path M 0 0 H 0
+  - path M 0 0 0 120
+  - path M 0 120 0 240
+  - path M 0 240 0 360
+- width: 144
+  height: 360
+  data:
+  - rect 0 0 144 360
+  - path M 0 72 H 31
+  - path M 103 72 H 144
+  - path M 72 139 72 149
+  - path M 72 211 72 221
+  - path M 72 283 72 293
+- width: 144
+  height: 360
+  data:
+  - rect 0 0 144 360
+  - path M 0 72 H 31
+  - path M 103 72 H 144
+  - path M 67 144 77 144
+  - path M 67 216 77 216
+  - path M 67 288 77 288
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 165
+  - path M 165 0 H 360
+  - path M 0 0 360 0
+  - path M 0 0 360 0
+  - path M 0 0 360 0

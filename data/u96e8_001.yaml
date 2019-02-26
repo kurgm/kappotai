@@ -1,0 +1,37 @@
+name: u96e8_001
+width: 360
+height: 180
+rect: 0 0 360 180
+data:
+- use 0 0 360 180 u96e8_001
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 H 0
+  - path M 0 0 H 0
+  - path M 0 360 V 0 H 0 V 360
+  - path M 0 360 V 0 H 0 V 360
+  - path M 0 180 H 0
+  - path M 0 180 H 0
+- width: 360
+  height: 278
+  data:
+  - rect 0 0 360 278
+  - path M 0 72 H 144
+  - path M 216 72 H 360
+  - path M 72 278 V 144 H 144 V 278
+  - path M 216 278 V 144 H 288 V 278
+  - path M 72 211 H 144
+  - path M 216 211 H 288
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 180
+  - path M 180 0 H 360
+  - path M 0 0 V 0 H 180 V 0
+  - path M 180 0 V 0 H 360 V 0
+  - path M 0 0 H 180
+  - path M 180 0 H 360

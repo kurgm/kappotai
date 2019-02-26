@@ -1,0 +1,25 @@
+name: u5c71
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u5c71
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 V 360
+  - path M 0 0 V 360
+- width: 360
+  height: 180
+  data:
+  - rect 0 0 360 180
+  - path M 115 0 V 60
+  - path M 245 0 V 60
+- width: 360
+  height: 90
+  data:
+  - rect 0 0 360 90
+  - path M 115 0 V 30
+  - path M 245 0 V 30

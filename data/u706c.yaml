@@ -1,0 +1,9 @@
+name: u706c
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 91 0 88 360
+- path M 177 0 183 360
+- path M 268 0 274 360

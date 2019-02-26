@@ -1,0 +1,39 @@
+name: u5442
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u5442
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 V 160
+  - path M 0 160 H 0
+  - path M 0 160 H 0
+  - path M 0 160 V 360
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 90 85 V 95
+  - path M 0 180 H 40
+  - path M 130 180 H 180
+  - path M 90 265 V 275
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 85 90 H 95
+  - path M 0 180 H 40
+  - path M 130 180 H 180
+  - path M 85 270 H 95
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 360
+  - path M 0 0 H 165
+  - path M 165 0 H 360
+  - path M 0 0 H 360

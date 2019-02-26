@@ -1,0 +1,7 @@
+name: u6c35
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 0 175 360 165

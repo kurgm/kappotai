@@ -1,0 +1,28 @@
+name: u9801
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u9801
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - use 0 0 0 300 u268fb
+  - path M 0 300 H 0
+  - path M 0 300 0 360
+- width: 20
+  height: 360
+  data:
+  - rect 0 0 20 360
+  - use 0 0 20 300 u268fb
+  - path M 0 300 H 20
+  - path M 8 300 13 360
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - use 0 0 360 0 u268fb
+  - path M 0 0 H 360
+  - path M 180 0 180 0

@@ -1,0 +1,7 @@
+name: u4e8c
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 0 174 H 360

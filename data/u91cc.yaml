@@ -1,0 +1,55 @@
+name: u91cc
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u91cc
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 V 180
+  - path M 0 0 V 180
+  - path M 0 180 V 360
+  - path M 0 180 V 360
+  - path M 0 360 H 0
+  - path M 0 360 H 0
+  - path M 0 360 H 0
+  - path M 0 360 H 0
+- width: 216
+  height: 360
+  data:
+  - rect 0 0 216 360
+  - path M 72 67 V 77
+  - path M 144 67 V 77
+  - path M 72 139 V 149
+  - path M 144 139 V 149
+  - path M 0 216 H 72
+  - path M 144 216 H 216
+  - path M 0 285 H 72
+  - path M 144 285 H 216
+- width: 216
+  height: 360
+  data:
+  - rect 0 0 216 360
+  - path M 72 72 H 72
+  - path M 144 72 H 144
+  - path M 72 144 H 72
+  - path M 144 144 H 144
+  - path M 0 216 H 72
+  - path M 144 216 H 216
+  - path M 0 285 H 72
+  - path M 144 285 H 216
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 180
+  - path M 180 0 H 360
+  - path M 0 0 H 180
+  - path M 180 0 H 360
+  - path M 0 0 H 180
+  - path M 180 0 H 360
+  - path M 0 0 H 180
+  - path M 180 0 H 360

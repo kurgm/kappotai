@@ -1,0 +1,39 @@
+name: u767e
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u767e
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - path M 0 0 H 0
+  - path M 0 0 H 0
+  - path M 0 0 0 180
+  - path M 0 180 0 360
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 0 90 H 40
+  - path M 130 90 H 180
+  - path M 90 175 90 185
+  - path M 90 265 90 275
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 0 90 H 40
+  - path M 130 90 H 180
+  - path M 85 180 95 180
+  - path M 85 270 95 270
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 0 0 H 165
+  - path M 165 0 H 360
+  - path M 0 0 360 0
+  - path M 0 0 360 0
