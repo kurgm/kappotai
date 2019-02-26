@@ -22,10 +22,12 @@ Xvfb "$DISPLAY" &
 trap "kill \"$!\" || true" EXIT
 export DISPLAY
 
+declare -a mktarget=()
 for fil in "${target[@]}"; do
   name=$(basename "${fil%.yaml}")
-  make "build/union/${name}.svg" "build/invert/${name}.svg"
+  mktarget+=("build/union/${name}.svg" "build/invert/${name}.svg")
 done
+make -j2 "${mktarget[@]}"
 
 column=$(echo "sqrt(${#target[@]} - 1) + 1" | bc)
 row=$(((${#target[@]} - 1) / column + 1))
