@@ -4,13 +4,14 @@ set -e
 
 cd "$(dirname "$0")/.."
 
+declare -a commit
 if [ "$#" = 0 ]; then
-  commit=HEAD
+  commit=(HEAD)
 else
-  commit=$@
+  commit=("$@")
 fi
 
-declare -a target=($(git diff-tree --no-commit-id --name-only -r $commit -- data))
+declare -a target=($(git diff-tree --no-commit-id --name-only -r "${commit[@]}" -- data))
 if [ "${#target[@]}" = 0 ]; then
   echo "No target file." >&2
   exit 1
@@ -27,7 +28,7 @@ for fil in "${target[@]}"; do
 done
 
 column=$(echo "sqrt(${#target[@]} - 1) + 1" | bc)
-row=$(((${#target[@]} - 1) / $column + 1))
+row=$(((${#target[@]} - 1) / column + 1))
 
 side=360
 width=$((column * side))
