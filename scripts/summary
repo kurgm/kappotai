@@ -26,9 +26,8 @@ for fil in "${target[@]}"; do
   make "build/union/${name}.svg" "build/invert/${name}.svg"
 done
 
-columnxrow=$(python3 -c "cells = ${#target[@]}; import math; column = int(math.ceil(cells ** 0.5)); print('{0}x{1}'.format(int(column), int(math.ceil(cells / column))))")
-column=${columnxrow%x*}
-row=${columnxrow#*x}
+column=$(echo "sqrt(${#target[@]} - 1) + 1" | bc)
+row=$(((${#target[@]} - 1) / $column + 1))
 
 side=360
 width=$((column * side))
