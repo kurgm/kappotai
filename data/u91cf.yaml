@@ -1,0 +1,8 @@
+name: u91cf
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 160 u65e6
+- use 0 160 360 200 u91cc

@@ -1,0 +1,8 @@
+name: u54e9
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 150 360 u53e3
+- use 150 0 210 360 u91cc

@@ -1,0 +1,8 @@
+name: u4e98
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 74 u4e00
+- use 0 74 360 286 u65e6

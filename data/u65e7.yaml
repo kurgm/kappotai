@@ -1,0 +1,8 @@
+name: u65e7
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 115 360 u4e28
+- use 115 0 245 360 u65e5

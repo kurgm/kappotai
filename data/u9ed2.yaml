@@ -1,0 +1,8 @@
+name: u9ed2
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 290 u91cc
+- use 0 290 360 70 u706c

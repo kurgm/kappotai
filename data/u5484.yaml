@@ -1,0 +1,8 @@
+name: u5484
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 142 360 u53e3
+- use 142 0 216 360 u51fa

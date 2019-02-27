@@ -1,0 +1,8 @@
+name: u96f7
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 200 u96e8_001
+- use 0 200 360 160 u7530
