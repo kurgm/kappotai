@@ -244,14 +244,21 @@ def normalize_size(width, height):
 def get_interpolated_data(name, width, height):
     data = load_yaml(name)
     width, height = normalize_size(width, height)
-    if "keys" not in data or not data["keys"]:
-        return data
-    return {
-        "name": "{0}-{1}-{2}".format(name, width, height),
-        "width": width,
-        "height": height,
-        "data": interpolate_keys(data["keys"], width, height),
-    }
+    if "keys" in data and data["keys"]:
+        return {
+            "name": "{0}-{1}-{2}".format(name, width, height),
+            "width": width,
+            "height": height,
+            "data": interpolate_keys(data["keys"], width, height),
+        }
+    if any(line.split()[0] == "use" for line in data["data"]):
+        return {
+            "name": "{0}-{1}-{2}".format(name, width, height),
+            "width": width,
+            "height": height,
+            "data": resized_glyph(data, width, height),
+        }
+    return data
 
 
 class SVGRenderer(object):
