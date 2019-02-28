@@ -19,9 +19,9 @@ keys:
   height: 360
   data:
   - rect 0 0 360 360
-  - path M 175 180 185 180
+  - path M 180 180 180 180
 - width: 360
   height: 0
   data:
   - rect 0 0 360 0
-  - path M 0 0 360 0
+  - path M 15 0 345 0

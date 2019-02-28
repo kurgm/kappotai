@@ -48,12 +48,12 @@ keys:
   height: 0
   data:
   - rect 0 0 360 0
-  - path M 0 0 H 120
-  - path M 120 0 H 240
-  - path M 240 0 H 360
-  - path M 0 0 H 120
-  - path M 120 0 H 240
-  - path M 240 0 H 360
-  - path M 0 0 H 120
-  - path M 120 0 H 240
-  - path M 240 0 H 360
+  - path M 0 0 H 115
+  - path M 125 0 H 235
+  - path M 245 0 H 360
+  - path M 10 0 H 115
+  - path M 125 0 H 235
+  - path M 245 0 H 350
+  - path M 0 0 H 115
+  - path M 125 0 H 235
+  - path M 245 0 H 360

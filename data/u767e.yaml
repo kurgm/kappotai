@@ -27,13 +27,13 @@ keys:
   - rect 0 0 180 360
   - path M 0 90 H 40
   - path M 130 90 H 180
-  - path M 85 180 95 180
-  - path M 85 270 95 270
+  - path M 90 180 90 180
+  - path M 90 270 90 270
 - width: 360
   height: 0
   data:
   - rect 0 0 360 0
-  - path M 0 0 H 165
-  - path M 165 0 H 360
-  - path M 0 0 360 0
-  - path M 0 0 360 0
+  - path M 0 0 H 157
+  - path M 172 0 H 360
+  - path M 15 0 345 0
+  - path M 15 0 345 0

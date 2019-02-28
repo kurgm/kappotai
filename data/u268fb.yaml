@@ -29,15 +29,15 @@ keys:
   - rect 0 0 144 360
   - path M 0 72 H 31
   - path M 103 72 H 144
-  - path M 67 144 77 144
-  - path M 67 216 77 216
-  - path M 67 288 77 288
+  - path M 72 144 72 144
+  - path M 72 216 72 216
+  - path M 72 288 72 288
 - width: 360
   height: 0
   data:
   - rect 0 0 360 0
-  - path M 0 0 H 165
-  - path M 165 0 H 360
-  - path M 0 0 360 0
-  - path M 0 0 360 0
-  - path M 0 0 360 0
+  - path M 0 0 H 157
+  - path M 172 0 H 360
+  - path M 15 0 345 0
+  - path M 15 0 345 0
+  - path M 15 0 345 0

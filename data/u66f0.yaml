@@ -5,11 +5,11 @@ rect: 0 0 360 360
 data:
 - use 0 0 360 360 u66f0
 keys:
-- width: 240
+- width: 250
   height: 360
   data:
-  - rect 0 0 240 360
-  - path M 115 120 125 120 125 240 115 240
+  - rect 0 0 250 360
+  - path M 120 120 130 120 130 240 120 240
 - width: 360
   height: 0
   data:

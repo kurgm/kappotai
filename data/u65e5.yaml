@@ -21,11 +21,11 @@ keys:
   height: 360
   data:
   - rect 0 0 240 360
-  - path M 115 120 125 120
-  - path M 115 240 125 240
+  - path M 120 120 120 120
+  - path M 120 240 120 240
 - width: 360
   height: 0
   data:
   - rect 0 0 360 0
-  - path M 0 0 360 0
-  - path M 0 0 360 0
+  - path M 15 0 345 0
+  - path M 15 0 345 0

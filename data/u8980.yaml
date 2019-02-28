@@ -30,18 +30,18 @@ keys:
   data:
   - rect 0 0 360 270
   - path M 0 90 H 90
-  - path M 175 90 H 185
+  - path M 180 90 H 180
   - path M 270 90 H 360
-  - path M 85 180 H 95
-  - path M 175 180 H 185
-  - path M 265 180 H 275
+  - path M 90 180 H 90
+  - path M 180 180 H 180
+  - path M 270 180 H 270
 - width: 360
   height: 0
   data:
   - rect 0 0 360 0
-  - path M 0 0 H 120
-  - path M 120 0 H 240
-  - path M 240 0 H 360
-  - path M 0 0 H 120
-  - path M 120 0 H 240
-  - path M 240 0 H 360
+  - path M 0 0 H 115
+  - path M 125 0 H 235
+  - path M 245 0 H 360
+  - path M 10 0 H 115
+  - path M 125 0 H 235
+  - path M 245 0 H 350

@@ -23,13 +23,13 @@ keys:
   height: 180
   data:
   - rect 0 0 360 180
-  - path M 85 90 95 90
-  - path M 175 90 185 90
-  - path M 265 90 275 90
+  - path M 90 90 90 90
+  - path M 180 90 180 90
+  - path M 270 90 270 90
 - width: 360
   height: 0
   data:
   - rect 0 0 360 0
-  - path M 0 0 120 0
-  - path M 120 0 240 0
-  - path M 240 0 360 0
+  - path M 10 0 115 0
+  - path M 125 0 235 0
+  - path M 245 0 350 0

@@ -29,9 +29,9 @@ keys:
   height: 0
   data:
   - rect 0 0 360 0
-  - path M 0 0 H 180
-  - path M 180 0 H 360
-  - path M 0 0 V 0 H 180 V 0
-  - path M 180 0 V 0 H 360 V 0
-  - path M 0 0 H 180
-  - path M 180 0 H 360
+  - path M 0 0 H 175
+  - path M 185 0 H 360
+  - path M 10 0 V 0 H 175 V 0
+  - path M 185 0 V 0 H 350 V 0
+  - path M 10 0 H 175
+  - path M 185 0 H 350
