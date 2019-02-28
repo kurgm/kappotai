@@ -30,14 +30,15 @@ def mkdeps():
             dep_glyphs = get_dep_glyphs(data)
             if not dep_glyphs:
                 continue
-            deplist.append("$(DATADIR)/{0} : {1}".format(
-                os.path.basename(yamlpath),
-                " ".join("$(DATADIR)/{0}.yaml".format(glyph)
-                         for glyph in dep_glyphs)
-            ))
+            deplist.append(
+                "edit/{0}.svg build/expand/{0}.svg : {1}".format(
+                    os.path.splitext(os.path.basename(yamlpath))[0],
+                    " ".join(
+                        "data/{0}.yaml".format(glyph) for glyph in dep_glyphs)
+                )
+            )
     header = """\
 # Auto generated from scripts/{0}
-DATADIR=../data
 """.format(os.path.basename(__file__))
     return header + "\n".join(deplist) + "\n"
 
