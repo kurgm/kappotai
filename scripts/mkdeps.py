@@ -37,6 +37,8 @@ def memoize(func):
     memo = {}
     @wraps(func)
     def wrapper(*args, **kwargs):
+        if args in memo:
+            return memo[args]
         result = func(*args, **kwargs)
         memo[args] = result
         return result
