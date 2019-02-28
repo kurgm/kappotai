@@ -28,6 +28,8 @@ ifdef EDITED_SVG
 data/%.yaml: edit/%.svg
 	$(READSVG) -o $@ $<
 
+.PRECIOUS: data/%.yaml
+
 else
 
 edit/%.svg: data/%.yaml $(WRITESVG) scripts/edit.css | edit
