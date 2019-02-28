@@ -127,6 +127,11 @@ release: build/$(RELEASENAME).zip
 
 endif
 
+build/deps.mk: $(YAMLS) scripts/mkdeps.py | build
+	scripts/mkdeps.py -o $@
+
+include build/deps.mk
+
 clean:
 	-$(RM) -r build edit
 
