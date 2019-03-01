@@ -35,6 +35,11 @@ else
 edit/%.svg: data/%.yaml $(WRITESVG) scripts/edit.css | edit
 	$(WRITESVG) -o $@ $<
 
+build/deps.mk: $(YAMLS) scripts/mkdeps.py | build
+	scripts/mkdeps.py -o $@
+
+include build/deps.mk
+
 endif
 
 build/expand:
@@ -128,11 +133,6 @@ build/$(RELEASENAME).zip: $(RELEASEFILES) $(RELEASEFONTS)
 release: build/$(RELEASENAME).zip
 
 endif
-
-build/deps.mk: $(YAMLS) scripts/mkdeps.py | build
-	scripts/mkdeps.py -o $@
-
-include build/deps.mk
 
 clean:
 	-$(RM) -r build edit
