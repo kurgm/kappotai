@@ -1,0 +1,29 @@
+name: u5369
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u5369
+keys:
+- width: 40
+  height: 360
+  data:
+  - rect 0 0 40 360
+  - path M 20,20 V 360
+  - path M 20,310 Q 22 320 30 330
+- width: 360
+  height: 270
+  data:
+  - rect 0 0 360 270
+  - path M 175,130 V 270
+  - path M 175,170 Q 180 190 210 210
+- width: 360
+  height: 270
+  data:
+  - rect 0 0 360 270
+  - path M 175,270 V 175 H 185
+- width: 360
+  height: 80
+  data:
+  - rect 0 0 360 80
+  - path M 70,80 V 60 H 290

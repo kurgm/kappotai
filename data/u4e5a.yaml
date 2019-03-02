@@ -1,0 +1,22 @@
+name: u4e5a
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u4e5a
+keys:
+- width: 20
+  height: 360
+  data:
+  - rect 0 0 20 360
+  - path M 20,316.21259 10,344
+- width: 240
+  height: 360
+  data:
+  - rect 0 0 240 360
+  - path M 240,121.93273 160.73766,226
+- width: 360
+  height: 180
+  data:
+  - rect 0 0 360 180
+  - path M 360,30 297.27654,105.41002

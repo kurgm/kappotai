@@ -1,0 +1,25 @@
+name: u4ea0
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u4ea0
+keys:
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 0 180 Q 0 260 50 280
+  - path M 180 180 Q 180 260 130 280
+- width: 360
+  height: 360
+  data:
+  - rect 0 0 360 360
+  - path M 0 0 Q 50 110 100 220
+  - path M 360 0 Q 310 110 260 220
+- width: 360
+  height: 20
+  data:
+  - rect 0 0 360 20
+  - path M 130 0 Q 163 0 165 8
+  - path M 230 0 Q 197 0 195 8

@@ -1,0 +1,37 @@
+name: u513f
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u513f
+keys:
+- width: 40
+  height: 360
+  data:
+  - rect 0 0 40 360
+  - path M 20 0 V 280 Q 20 330 10 360
+  - path M 40,316.21259 30,344
+- width: 360
+  height: 270
+  data:
+  - rect 0 0 360 270
+  - path M 180 0 V 120 Q 180 200 150 270
+  - path M 360,91.449548 300.55324,169.5
+- width: 360
+  height: 90
+  data:
+  - rect 0 0 360 90
+  - path M 180 0 V 0 Q 180 50 165 90
+  - path M 360,15 328.63827,52.70501
+- width: 360
+  height: 90
+  data:
+  - rect 0 0 360 90
+  - path M 180 0 Q 180 50 165 90
+  - path M 325,0 320,30
+- width: 360
+  height: 30
+  data:
+  - rect 0 0 360 30
+  - path M 180 0 Q 180 16 175 30
+  - path M 345,0 340,15

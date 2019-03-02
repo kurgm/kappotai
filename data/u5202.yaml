@@ -1,0 +1,22 @@
+name: u5202
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u5202
+keys:
+- width: 10
+  height: 360
+  data:
+  - rect 0 0 10 360
+  - path M 5,0 V 355 Q 5,356 0,355
+- width: 240
+  height: 360
+  data:
+  - rect 0 0 240 360
+  - path M 120,0 V 240 Q 120,264 0,240
+- width: 360
+  height: 90
+  data:
+  - rect 0 0 360 90
+  - path M 180,0 V 70 Q 180,74 0,70
