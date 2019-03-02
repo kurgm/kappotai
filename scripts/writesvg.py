@@ -63,6 +63,8 @@ def load_yaml(name):
 def resized_glyph(data, width, height, dx=0.0, dy=0.0):
     xscale = width / data["width"]
     yscale = height / data["height"]
+    if xscale == yscale == 1.0:
+        return data["data"]
     glyph = []
     for line in data["data"]:
         tokens = line.split()
@@ -212,7 +214,7 @@ def div_inf(x, y):
 
 def interpolate_keys(keys, width, height):
     if len(keys) == 1:
-        return keys[0]["data"]
+        return resized_glyph(keys[0], width, height)
     assert len(keys) >= 2
 
     t = div_inf(width, height)
@@ -227,9 +229,9 @@ def interpolate_keys(keys, width, height):
         raise InterpolateError("cannot extrapolate keys")
 
     if t0 == t:
-        return key0["data"]
+        return resized_glyph(key0, width, height)
     if t1 == t:
-        return key1["data"]
+        return resized_glyph(key1, width, height)
     assert t0 != t1
 
     return interpolate_key(key0, key1, width, height)
