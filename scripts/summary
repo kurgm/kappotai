@@ -4,14 +4,20 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-declare -a commit
-if [ "$#" = 0 ]; then
-  commit=(HEAD)
-else
-  commit=("$@")
-fi
+declare -a target
 
-declare -a target=($(git diff-tree --no-commit-id --name-only -r "${commit[@]}" -- data))
+if [ "$#" = 1 ] && [ "$1" = "-" ]; then
+  target=($(cat))
+else
+  declare -a commit
+  if [ "$#" = 0 ]; then
+    commit=(HEAD)
+  else
+    commit=("$@")
+  fi
+
+  target=($(git diff-tree --no-commit-id --name-only -r "${commit[@]}" -- data))
+fi
 if [ "${#target[@]}" = 0 ]; then
   echo "No target file." >&2
   exit 1
