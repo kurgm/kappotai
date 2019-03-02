@@ -13,15 +13,15 @@ Build requires:
 - Python3 + pip
 - Xvfb (optional)
 
-On ubuntu you can install these prerequisites with:
+On Ubuntu you can install these prerequisites with:
 ```
 sudo apt-get install inkscape python3-pip xvfb
 ```
 
 Run the following commands to build `build/kappotaiw.otf` and `build/kappotaib.otf`
 ```
-pip install -r requirements.txt
-Xvfb :99
+pip3 install -r requirements.txt
+Xvfb :99 &
 DISPLAY=:99 make
 ```
 
