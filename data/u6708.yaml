@@ -1,0 +1,35 @@
+name: u6708
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u6708
+keys:
+- width: 40
+  height: 360
+  data:
+  - rect 0 0 40 360
+  - path M 20,20 V 100
+  - path M 20,120 V 210
+  - path M 20,230 V 320 Q 20,340 15,340 V 360
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 90,85 V 95
+  - path M 90,180 V 190
+  - path M 90,280 V 280 Q 90,330 65,330 V 360
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 90,90 H 90
+  - path M 90,180 H 90
+  - path M 65,360 Q 90,330 90,270 H 90
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 10,0 H 350
+  - path M 10,0 H 350
+  - path M 8,0 Q 10,0 10,0 H 350

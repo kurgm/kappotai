@@ -1,0 +1,37 @@
+name: u5200
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u5200
+keys:
+- width: 40
+  height: 360
+  data:
+  - rect 0 0 40 360
+  - path M 0,90 Q 5,50 10,20
+  - path M 20,20 V 200 C 20,300 20,340 15,340 V 360
+- width: 360
+  height: 360
+  data:
+  - rect 0 0 360 360
+  - path M 0,180 Q 30,150 60,135
+  - path M 200,135 V 190 C 200,250 170,300 100,300 V 360
+- width: 360
+  height: 270
+  data:
+  - rect 0 0 360 270
+  - path M 0,145 Q 30,140 60,135
+  - path M 210,135 V 135 C 210,180 175,230 100,230 V 270
+- width: 360
+  height: 270
+  data:
+  - rect 0 0 360 270
+  - path M 0,145 40,135
+  - path M 225,135 H 175 Q 170,225 120,270
+- width: 360
+  height: 40
+  data:
+  - rect 0 0 360 40
+  - path M 0,22 20,20
+  - path M 330,20 H 50 Q 42,38 30,40

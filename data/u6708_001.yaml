@@ -1,0 +1,21 @@
+name: u6708_001
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u6708_001
+keys:
+- width: 180
+  height: 360
+  data:
+  - rect 0 0 180 360
+  - path M 90,90 H 90
+  - path M 90,180 H 90
+  - path M 90,360 V 270 H 90
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - path M 10,0 H 350
+  - path M 10,0 H 350
+  - path M 10,0 V 0 H 350

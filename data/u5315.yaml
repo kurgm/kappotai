@@ -1,0 +1,31 @@
+name: u5315
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u5315
+keys:
+- width: 40
+  height: 360
+  data:
+  - rect 0 0 40 360
+  - path M 22,0 20,220
+  - path M 40,230 Q 38,237 20,240 V 340
+- width: 360
+  height: 270
+  data:
+  - rect 0 0 360 270
+  - path M 195,0 185,50
+  - path M 360,105 Q 340,148 190,150 V 170
+- width: 360
+  height: 270
+  data:
+  - rect 0 0 360 270
+  - path M 185,0 135,60
+  - path M 360,115 H 330 C 330,144 245,160 135,160 H 135
+- width: 360
+  height: 40
+  data:
+  - rect 0 0 360 40
+  - path M 60,0 30,7
+  - path M 360,15 H 340 C 340,20 330,20 300,20 H 30
