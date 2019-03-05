@@ -61,10 +61,10 @@ def load_yaml(name):
 
 
 def resized_glyph(data, width, height, dx=0.0, dy=0.0):
+    if width == data["width"] and height == data["height"]:
+        return data["data"]
     xscale = width / data["width"]
     yscale = height / data["height"]
-    if xscale == yscale == 1.0:
-        return data["data"]
     glyph = []
     for line in data["data"]:
         tokens = line.split()
