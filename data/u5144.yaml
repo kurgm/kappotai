@@ -1,0 +1,55 @@
+name: u5144
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u5144
+keys:
+- width: 60
+  height: 360
+  data:
+  - rect 0 0 60 360
+  - path M 30,30 V 210
+  - path M 0,250 Q 5,250 10,240
+  - path M 25,360 Q 30,300 30,240
+  - path M 60,240 H 47 V 280
+- width: 200
+  height: 360
+  data:
+  - rect 0 0 200 360
+  - path M 100,80 V 150
+  - path M 0,245 Q 25,245 40,228
+  - path M 90,360 Q 100,300 100,230
+  - path M 200,230 H 160 V 300
+- width: 200
+  height: 360
+  data:
+  - rect 0 0 200 360
+  - path M 100,100 H 100
+  - path M 0,215 Q 25,215 40,198
+  - path M 90,360 Q 100,300 100,200
+  - path M 200,200 H 160 V 280
+- width: 360
+  height: 360
+  data:
+  - rect 0 0 360 360
+  - path M 110,110 H 250
+  - path M 0,240 Q 40,240 70,215
+  - path M 160,360 Q 180,300 180,220
+  - path M 360,220 H 290 V 290
+- width: 360
+  height: 150
+  data:
+  - rect 0 0 360 150
+  - path M 54,47 H 313
+  - path M 0,102.1 Q 68,102.1 112,91.8
+  - path M 170.5,150 Q 180,127.1 180,94
+  - path M 360,94 H 248 V 94
+- width: 360
+  height: 60
+  data:
+  - rect 0 0 360 60
+  - path M 30,20 H 340
+  - path M 0,43 Q 80,43 130,39
+  - path M 175,60 Q 180,53 180,40
+  - path M 360,40 H 230 V 40
