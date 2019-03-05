@@ -3,6 +3,23 @@ width: 360
 height: 360
 rect: 0 0 360 360
 data:
-- rect 0 0 360 360
-- use 0 0 115 360 u4e28
-- use 115 0 245 360 u65e5
+- use 0 0 360 360 u65e7
+keys:
+- width: 0
+  height: 360
+  data:
+  - rect 0 0 0 360
+  - use 0 0 0 360 u4e28
+  - use 0 0 0 360 u65e5
+- width: 360
+  height: 360
+  data:
+  - rect 0 0 360 360
+  - use 0 0 115 360 u4e28
+  - use 115 0 245 360 u65e5
+- width: 360
+  height: 0
+  data:
+  - rect 0 0 360 0
+  - use 0 0 20 0 u4e28
+  - use 20 0 340 0 u65e5
