@@ -1,0 +1,55 @@
+name: u898b
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u898b
+keys:
+- width: 20
+  height: 360
+  data:
+  - rect 0 0 20 360
+  - path M 10,10 V 85
+  - path M 10,95 V 170
+  - path M 10,180 V 260
+  - path M 0,280 Q 4,280 6,270
+  - path M 8,360 Q 10,330 10,270
+  - path M 20,270 H 16 V 320
+- width: 144
+  height: 360
+  data:
+  - rect 0 0 144 360
+  - path M 72,62 V 72
+  - path M 72,134 V 144
+  - path M 72,206 V 216
+  - path M 0,290 Q 20,290 30,278
+  - path M 63,360 Q 72,330 72,278
+  - path M 144,278 H 115 V 320
+- width: 144
+  height: 360
+  data:
+  - rect 0 0 144 360
+  - path M 72,70 H 72
+  - path M 72,140 H 72
+  - path M 72,210 H 72
+  - path M 0,290 Q 20,290 30,280
+  - path M 63,360 Q 72,330 72,280
+  - path M 144,280 H 115 V 320
+- width: 360
+  height: 244
+  data:
+  - rect 0 0 360 244
+  - path M 54,47 H 313
+  - path M 54,94 H 313
+  - path M 54,141 H 313
+  - path M 0,196.1 Q 68,196.1 112,185.8
+  - path M 170.5,244 Q 180,221.1 180,188
+  - path M 360,188 H 248 V 188
+- width: 360
+  height: 60
+  data:
+  - rect 0 0 360 60
+  - path M 30,20 H 340
+  - path M 0,43 Q 80,43 130,39
+  - path M 175,60 Q 180,53 180,40
+  - path M 360,40 H 230 V 40

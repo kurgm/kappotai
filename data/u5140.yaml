@@ -1,0 +1,35 @@
+name: u5140
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- use 0 0 360 360 u5140
+keys:
+- width: 120
+  height: 360
+  data:
+  - rect 0 0 120 360
+  - path M 0,100 Q 5,100 10,90
+  - path M 42,360 Q 50,300 50,240 V 90
+  - path M 120,90 H 90 V 200
+- width: 360
+  height: 360
+  data:
+  - rect 0 0 360 360
+  - path M 0,160 Q 30,160 50,135
+  - path M 150,360 Q 170,300 170,220 V 140
+  - path M 360,140 H 290 V 250
+- width: 360
+  height: 103
+  data:
+  - rect 0 0 360 103
+  - path M 0,55.1 Q 68,55.1 112,44.8
+  - path M 170.5,103 Q 180,80.1 180,47 V 47
+  - path M 360,47 H 248 V 47
+- width: 360
+  height: 40
+  data:
+  - rect 0 0 360 40
+  - path M 0,23 Q 80,23 130,19
+  - path M 175,40 Q 180,33 180,20 V 20
+  - path M 360,20 H 230 V 20
