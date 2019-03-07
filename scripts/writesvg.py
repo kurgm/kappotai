@@ -61,7 +61,7 @@ def load_yaml(name):
 
 
 def resized_glyph(data, width, height, dx=0.0, dy=0.0):
-    if width == data["width"] and height == data["height"]:
+    if width == data["width"] and height == data["height"] and dx == dy == 0.0:
         return data["data"]
     xscale = width / data["width"]
     yscale = height / data["height"]
