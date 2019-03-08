@@ -1,0 +1,9 @@
+name: u56c2
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 72 u5405
+- use 0 72 360 216 u9801
+- use 0 288 360 72 u5405

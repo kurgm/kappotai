@@ -1,0 +1,9 @@
+name: u66fc
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 135 u65e5
+- use 0 135 360 90 u7f52
+- use 0 225 360 135 u53c8

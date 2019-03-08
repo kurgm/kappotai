@@ -1,0 +1,8 @@
+name: u5501
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 130 360 u53e3
+- use 130 0 230 360 u8a00

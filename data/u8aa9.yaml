@@ -1,0 +1,8 @@
+name: u8aa9
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 180 360 u8a00
+- use 180 0 180 360 u8a00

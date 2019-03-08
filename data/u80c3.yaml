@@ -1,0 +1,8 @@
+name: u80c3
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 150 u7530
+- use 0 150 360 210 u6708_001

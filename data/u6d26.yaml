@@ -1,0 +1,8 @@
+name: u6d26
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 105 360 u6c35
+- use 105 0 255 360 u767e

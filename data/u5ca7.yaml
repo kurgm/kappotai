@@ -1,0 +1,8 @@
+name: u5ca7
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 110 u5c71
+- use 0 110 360 250 u53ec

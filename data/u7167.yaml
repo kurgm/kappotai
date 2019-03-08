@@ -1,0 +1,8 @@
+name: u7167
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 280 u662d
+- use 0 280 360 80 u706c

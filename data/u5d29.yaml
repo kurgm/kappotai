@@ -1,0 +1,8 @@
+name: u5d29
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 100 u5c71
+- use 0 100 360 260 u670b

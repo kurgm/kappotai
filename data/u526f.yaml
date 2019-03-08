@@ -1,0 +1,8 @@
+name: u526f
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 225 360 u7550
+- use 225 0 135 360 u5202

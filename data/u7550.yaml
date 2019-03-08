@@ -1,0 +1,8 @@
+name: u7550
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 180 u20b9b
+- use 0 180 360 180 u7530

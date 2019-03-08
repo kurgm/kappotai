@@ -1,0 +1,8 @@
+name: u20b9b
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 130 u4e00
+- use 0 130 360 230 u53e3

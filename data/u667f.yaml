@@ -1,0 +1,8 @@
+name: u667f
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 130 360 u65e5
+- use 130 0 230 360 u660c

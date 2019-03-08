@@ -1,0 +1,8 @@
+name: u53ec
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 360 190 u5200
+- use 0 190 360 170 u53e3

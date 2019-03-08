@@ -1,0 +1,8 @@
+name: u4abc
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- use 0 0 170 360 u51fa
+- use 170 0 190 360 u9801
