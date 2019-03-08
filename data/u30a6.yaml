@@ -1,0 +1,9 @@
+name: u30a6
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 50,0 Q 90,30 100,70
+- path M 310,0 Q 270,30 260,70
+- path M 0,250 H 160 A 20,20 0 0 0 180,230 V 175
