@@ -46,10 +46,12 @@ keys:
   - path M 170.5,244 Q 180,221.1 180,188
   - path M 360,188 H 248 V 188
 - width: 360
-  height: 60
+  height: 100
   data:
-  - rect 0 0 360 60
+  - rect 0 0 360 100
   - path M 30,20 H 340
-  - path M 0,43 Q 80,43 130,39
-  - path M 175,60 Q 180,53 180,40
-  - path M 360,40 H 230 V 40
+  - path M 30,40 H 340
+  - path M 30,60 H 340
+  - path M 0,83 Q 80,83 130,79
+  - path M 175,100 Q 180,93 180,80
+  - path M 360,80 H 230 V 80
