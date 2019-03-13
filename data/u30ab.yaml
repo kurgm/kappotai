@@ -1,0 +1,10 @@
+name: u30ab
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 0 0 Q 40 20 75 50
+- path M 300 0 Q 240 20 215 50
+- path M 0 200 Q 40 195 60 180
+- path M 150 360 V 290 C 185 290 200 270 205 180

@@ -1,0 +1,8 @@
+name: u30a8
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 0 175 H 92
+- path M 360 175 H 268

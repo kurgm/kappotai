@@ -1,0 +1,11 @@
+name: u30aa
+width: 360
+height: 360
+rect: 0 0 360 360
+data:
+- rect 0 0 360 360
+- path M 70 0 Q 140 20 180 50
+- path M 360 0 310 50
+- path M 0 180 Q 120 175 160 160
+- path M 120 360 Q 185 310 200 240
+- path M 360 280 Q 360 220 315 160
