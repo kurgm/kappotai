@@ -20,7 +20,7 @@ TARGET=build/kappotaiw.otf build/kappotaib.otf
 
 all: $(TARGET)
 
-edit:
+edit build:
 	mkdir -p $@
 
 ifdef EDITED_SVG
